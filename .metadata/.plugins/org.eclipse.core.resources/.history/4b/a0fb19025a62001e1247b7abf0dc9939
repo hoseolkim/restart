@@ -1,0 +1,36 @@
+package kr.or.ddit.member.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class MemberServiceImplTest {
+
+	MemberService service = new MemberServiceImpl();
+	
+	@Test
+	void testCreateMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRetrieveMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRetrieveMemberList() {
+		
+	}
+
+	@Test
+	void testModifyMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRemoveMember() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -1,0 +1,10 @@
+package kr.or.ddit.vo;
+
+public class CartVO {
+	
+	
+	
+	
+	// 1:1 has a 관계..
+	private ProdVO prod;
+}

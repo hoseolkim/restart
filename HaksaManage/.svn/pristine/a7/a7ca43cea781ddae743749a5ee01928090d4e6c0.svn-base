@@ -1,0 +1,38 @@
+/**
+ * 
+ */
+$(function(){
+	
+	const cPath = $(".sidebar-sticky").data("contextPath");
+	
+	let makeLiTag = function(lectureVO) {
+		let trTag = `
+			<li class="nav-item">
+				<a class="nav-link active" href="javascript:;">${lectureVO.subjectVO.subName}</a>
+			</li>
+			`;
+		return trTag;
+	}; //makeTags end
+	
+	
+	const baseUrl = `${cPath}/professor`;
+
+	$.getJSON(baseUrl, function(resp) {
+		let lectureList = resp.lectureList;
+		trTags = "";
+		if (lectureList?.length > 0) {			//adrList가 있고 length가 0보다 크다
+			$.each(lectureList, function() {
+				trTags += makeLiTag(this);
+			});
+		} else {
+			trTags += `
+			<li class="nav-item">
+				현재 강의중인 목록이 없습니다.
+			</li>
+			`;
+		}// if ~ else end
+
+		$("#lectureList").html(trTags);
+	});// getJSON end
+	
+});

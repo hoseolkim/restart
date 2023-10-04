@@ -1,0 +1,87 @@
+package kr.or.ddit.actor.student.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import kr.or.ddit.actor.student.service.StudentService;
+import kr.or.ddit.actor.student.service.StudentServiceImpl;
+import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.mvc.ViewResolverComposite;
+import kr.or.ddit.utils.ValidationUtils;
+import kr.or.ddit.validate.grouphint.DeleteGroup;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.LectureVO;
+
+@WebServlet("/student")
+public class StudentDataControllerServlet extends HttpServlet{
+	private StudentService service = new StudentServiceImpl();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String stdNo = (String)req.getSession().getAttribute("loginId");
+		List<LectureVO> lectureList = service.retrieveLectureList(stdNo);
+		List<LectureVO> myList = service.retrieveMyLectureList(stdNo);
+		req.setAttribute("myList", myList);
+		req.setAttribute("lectureList", lectureList);
+		req.getRequestDispatcher("/jsonView.view").forward(req, resp);
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		ClassVO classVo = new ClassVO();
+		
+		String stdNo = (String)req.getSession().getAttribute("loginId");
+		String lecCd = (String)req.getParameter("lecCd");
+		classVo.setStdNo(stdNo);
+		classVo.setLecCd(lecCd);
+		
+		Map<String, List<String>> errors = new HashMap<>();
+		
+		boolean valid = ValidationUtils.validate(classVo, errors, DeleteGroup.class);
+		
+		String viewName = "";
+		if(valid) {
+			ServiceResult result = service.removeClass(classVo);
+			
+			switch(result) {
+			case OK:
+				viewName = "redirect:/";
+				session.invalidate();
+				break;
+				
+			default:
+//				viewName = "redirect:/"
+			}
+		}
+		
+		new ViewResolverComposite().resolveView(viewName, req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		
+		String lecCd = req.getParameter("lecCd");
+		HttpSession session = req.getSession();
+		String stdNo = (String)session.getAttribute("loginId");
+		ClassVO classVO = new ClassVO();
+		classVO.setLecCd(lecCd);
+		classVO.setStdNo(stdNo);
+		
+		
+		
+		
+		
+		
+	}
+}

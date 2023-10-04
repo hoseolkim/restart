@@ -1,0 +1,17 @@
+package kr.or.ddit.paging;
+
+import kr.or.ddit.vo.PaginationInfo;
+
+public class BootstrapPaginationRenderer implements PaginationRenderer {
+	private final String PATTERN = "<a href='javascript:;' onclick='fn_paging(%d);'>%s</a>";
+	@Override
+	public String renderPagination(PaginationInfo<?> paging) {
+		
+		
+		
+		
+		
+		return null;
+	}
+
+}

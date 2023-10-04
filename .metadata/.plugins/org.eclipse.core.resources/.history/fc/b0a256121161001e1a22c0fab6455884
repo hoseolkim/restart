@@ -1,0 +1,116 @@
+package kr.or.ddit.actor.student.service;
+
+import java.util.List;
+
+import kr.or.ddit.actor.student.dao.StudentDAO;
+import kr.or.ddit.actor.student.dao.StudentDAOImpl;
+import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.CounselVO;
+import kr.or.ddit.vo.LectureVO;
+import kr.or.ddit.vo.StudentVO;
+
+public class StudentServiceImpl implements StudentService {
+	private StudentDAO dao = new StudentDAOImpl(); 
+	
+	@Override
+	public StudentVO retrieveStudent(String stdNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<LectureVO> retrieveLectureList(String stdNo) {
+		return dao.selectLecutreList(stdNo);
+	}
+	@Override
+	public ServiceResult createClass(ClassVO classVO) {
+		int alreadyDone = dao.selectClass(classVO);
+		// 이미 신청한 과목일 경우
+		if(alreadyDone > 0) {
+			return ServiceResult.ALREADYDONE;
+		}
+		int maxLimit = dao.selectClassLimit(classVO.getLecCd());
+		int currPerson = dao.selectClassCurrent(classVO.getLecCd());
+		// 수강인원 제한에 결릴 경우
+		if(currPerson >= maxLimit) {
+			return ServiceResult.LIMITED;
+		}
+		// 수강신청이 겹치는지 확인
+		// 수강신청 하려는 강의 정보
+		LectureVO lecture = dao.selectLecture(classVO.getLecCd());
+		String lecWeek = lecture.getLecWeek();
+		String lecTime = lecture.getLecTime();
+		String[] lecTimes = calculateTime(lecTime);
+		int startTime = Integer.parseInt(lecTimes[0]);
+		int endTime = Integer.parseInt(lecTimes[1]);
+		
+		
+		// 수강신청 하려는 학생의 기 신청 목록 정보
+		List<LectureVO> myLectureList = dao.selectMyLecutreList(classVO.getStdNo());
+		
+		boolean valid = true;
+		for(LectureVO lec : myLectureList) {
+			if(lec.getLecWeek().equals(lecWeek)) {
+				String lecT = lec.getLecTime();
+				String[] lTimes = calculateTime(lecT);
+				int sTime = Integer.parseInt(lTimes[0]);
+				int eTime = Integer.parseInt(lTimes[1]);
+				valid &= !(startTime <= sTime && sTime <= endTime);
+				valid &= !(startTime <= eTime && eTime <= endTime);
+			}
+		}
+		
+		if(!valid) {
+			return ServiceResult.DUPLICATED;
+		}
+		
+		int result = dao.insertClass(classVO);
+		return result >=1 ? ServiceResult.OK : ServiceResult.FAIL;
+	}
+
+	@Override
+	public ServiceResult removeClass(ClassVO classVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClassVO> retrieveScore(String stdNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CounselVO> selectCounselList(String stdNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CounselVO retrieveCounsel(CounselVO counselVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult updateStudentTel(StudentVO studentVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<LectureVO> retrieveMyLectureList(String stdNo) {
+		return dao.selectMyLecutreList(stdNo);
+	}
+
+	private String[] calculateTime(String lecTime) {
+		String[] lecTimes = lecTime.split("-");
+		for(int i = 0 ; i < lecTimes.length ; i++) {
+			lecTimes[i] = lecTimes[i].substring(0, 2);
+		}
+		return lecTimes;
+	}
+	
+	
+}

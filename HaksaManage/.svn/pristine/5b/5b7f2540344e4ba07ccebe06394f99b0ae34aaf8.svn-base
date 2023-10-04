@@ -1,0 +1,52 @@
+package kr.or.ddit.actor.staff.service;
+
+import java.util.List;
+
+import kr.or.ddit.actor.staff.dao.StaffDAO;
+import kr.or.ddit.actor.staff.dao.StaffDAOImpl;
+import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.vo.ProfessorVO;
+import kr.or.ddit.vo.StudentVO;
+import kr.or.ddit.vo.SubjectVO;
+import oracle.net.ano.AuthenticationService;
+
+public class StaffServiceImpl implements StaffService{
+	private StaffDAO dao = new StaffDAOImpl();
+			
+
+	@Override
+	public ServiceResult createSubject(SubjectVO subjectVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SubjectVO> retrieveSubjectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProfessorVO> retrieveProfessorList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StudentVO> retrieveStudentList() {
+		return dao.selectStudentList();
+	}
+
+	@Override
+	public ServiceResult createProfessor(ProfessorVO professorVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceResult createStudent(StudentVO studentVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

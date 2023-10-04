@@ -1,0 +1,17 @@
+package kr.or.ddit.paging;
+
+import kr.or.ddit.vo.PaginationInfo;
+
+public class DefaultPaginationRenderer implements PaginationRenderer {
+	private final String PATTERN = "<a href='javascript:;' onclick='fn_paging(%d);'>%d</a>";
+	@Override
+	public String renderPagination(PaginationInfo<?> paging) {
+		int startPage = paging.getStartPage();
+		int endPage = paging.getEndPage();
+		
+		StringBuffer html = new StringBuffer();
+		
+		
+		return html.toString();
+	}
+}

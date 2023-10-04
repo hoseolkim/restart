@@ -1,0 +1,13 @@
+package kr.or.ddit.paging;
+
+import kr.or.ddit.vo.PaginationInfo;
+
+public class BootstrapPaginationRenderer implements PaginationRenderer {
+
+	@Override
+	public String renderPagination(PaginationInfo<?> paging) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

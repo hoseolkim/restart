@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="isNotBlank"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="true"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="true"/>
+		<list key="findhistory">
+			<item value="isNotBlank"/>
+			<item value="isNotBlank&apos;"/>
+			<item value="(\w+_\w+),"/>
+			<item value="LiTAG_END"/>
+			<item value="prodSet"/>
+			<item value="memberList"/>
+			<item value="memberSet"/>
+			<item value="select"/>
+			<item value="repository"/>
+			<item value="required"/>
+			<item value="DATE"/>
+			<item value="NUMBER"/>
+			<item value="VAR"/>
+			<item value="MEM_(\w+),"/>
+			<item value=":v\d"/>
+		</list>
+		<list key="replacehistory">
+			<item value=",$1"/>
+			<item value="LITAG_END"/>
+			<item value="cartSet"/>
+			<item value="memberSet"/>
+			<item value="memberList"/>
+			<item value=""/>
+			<item value=", MEM_$1"/>
+			<item value="#\{\}"/>
+			<item value="cPath"/>
+			<item value="$\{\s\}"/>
+			<item value="\?"/>
+			<item value="case8"/>
+			<item value="case7"/>
+			<item value="case6"/>
+			<item value="case5"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="592"/>
+		<item key="DIALOG_Y_ORIGIN" value="313"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="358"/>
+		<item key="DIALOG_Y_ORIGIN" value="694"/>
+	</section>
+</section>

@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<table class="table">
+	<thead class="table-dark">
+		<tr>
+			<th>수강번호</th>
+			<th>학생코드</th>
+			<th>학생명</th>
+			<th>주민등록번호</th>
+			<th>연락처</th>
+			<th colspan='2'>주소</th>
+		</tr>
+	</thead>
+	<tbody id="studentListBody">
+		
+	</tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">학점관리상세</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="hakjumModify" action="" method="post">
+      <div class="modal-body">
+      	점수:<h3 id="hakjum"></h3>
+        <input type="number" name="score" class="form-control"/>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" id="modify">재등록</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

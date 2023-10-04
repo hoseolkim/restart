@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.prod.dao.ProdDAO">
+	<resultMap type="ProdVO" id="prod" autoMapping="true">
+		<association property="lprod" autoMapping="true" />
+		<association property="buyer" autoMapping="true" />
+	</resultMap>
+	<select id="selectProd" resultMap="prod" parameterType="String">
+		
+	</select>
+</mapper>

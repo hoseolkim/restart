@@ -1,0 +1,119 @@
+package kr.or.ddit.actor.staff.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
+
+import kr.or.ddit.actor.professor.service.ProfessorService;
+import kr.or.ddit.actor.professor.service.ProfessorServiceImpl;
+import kr.or.ddit.actor.staff.service.StaffService;
+import kr.or.ddit.actor.staff.service.StaffServiceImpl;
+import kr.or.ddit.actor.student.service.StudentService;
+import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.mvc.ViewResolverComposite;
+import kr.or.ddit.utils.PopulateUtils;
+import kr.or.ddit.utils.ValidationUtils;
+import kr.or.ddit.validate.grouphint.DeleteGroup;
+import kr.or.ddit.validate.grouphint.InsertGroup;
+import kr.or.ddit.vo.ClassVO;
+import kr.or.ddit.vo.LectureVO;
+import kr.or.ddit.vo.ProfessorVO;
+import kr.or.ddit.vo.StudentVO;
+
+@WebServlet("/staff/professor")
+public class StaffProfessorDataControllerServlet extends HttpServlet {
+	private StaffService service = new StaffServiceImpl();
+	private ProfessorService professorService = new ProfessorServiceImpl();
+	
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		List<ProfessorVO> proList= service.retrieveProfessorList();
+		req.setAttribute("proList", proList);
+		
+		
+		String viewName = "staff/professor";
+		new ViewResolverComposite().resolveView(viewName, req, resp);
+	}
+	
+	private boolean validate(ProfessorVO vo, Map<String, String> errors) {
+		boolean valid = true;
+		if(StringUtils.isBlank(vo.getProName())) {
+			errors.put("proName","이름 누락");
+			valid = false;
+		}
+		if(StringUtils.isBlank(vo.getProMajor())) {
+			errors.put("ProMaj","학과  누락");
+			valid = false;
+		}
+	
+		if(StringUtils.isBlank(vo.getProTelno())) {
+			errors.put("proHp","전화번호");
+			valid = false;
+		}
+		
+		if(StringUtils.isBlank(vo.getProTelno())) {
+			errors.put("proDeptno","학과번호");
+			valid = false;
+		}
+		return valid;
+	}
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		req.setCharacterEncoding("UTF-8");
+		
+		ProfessorVO proVo = new ProfessorVO();
+		req.setAttribute("proVo", proVo);
+		
+		Map<String, String[]> parameterMap = req.getParameterMap();
+		
+		PopulateUtils.populate(proVo, parameterMap);
+		
+		System.out.println(proVo.toString());
+		
+		Map<String, List<String>> errors = new HashMap<>();
+		req.setAttribute("errors", errors);
+		
+		boolean valid = ValidationUtils.validate(proVo, errors, InsertGroup.class);
+		
+		String viewName = null;
+		if(valid) {
+			ServiceResult result = service.createProfessor(proVo);
+			switch (result) {
+			case DUPLICATED:
+				req.setAttribute("message", "교수번호");
+				viewName = "staff/professor";
+				break;
+			case OK:
+				viewName = "redirect:/staff/professor";
+				break;								
+			default:
+				req.setAttribute("message", "서버 오류");
+				viewName = "staff/professor";
+				break;
+			}
+		}else {
+			viewName = "staff/professor";
+		}
+		
+		new ViewResolverComposite().resolveView(viewName, req, resp);
+	}
+	
+}
+
+	
+	

@@ -1,0 +1,45 @@
+package kr.or.ddit.member.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PaginationInfo;
+
+class MemberServiceImplTest {
+
+	MemberService service = new MemberServiceImpl();
+	
+	@Test
+	void testCreateMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRetrieveMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRetrieveMemberList() {
+		PaginationInfo paging = new PaginationInfo();
+		
+		List<MemberVO> dataList = service.retrieveMemberList(paging);
+		
+		
+	}
+
+	@Test
+	void testModifyMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testRemoveMember() {
+		fail("Not yet implemented");
+	}
+
+}

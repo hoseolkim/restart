@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.prod.dao.ProdDAO">
+	<resultMap type="ProdVO" id="prod" autoMapping="true">
+		<id property="prodId" column="PROD_ID" />
+		<association property="lprod" autoMapping="true" />
+		<association property="buyer" autoMapping="true" />
+		<collection property="memberList" ofType="MemberVO" autoMapping="true">
+<!-- 			<id property="memId" column="MEM_ID"/> -->
+		</collection>
+	</resultMap>
+	<select id="selectProd" resultMap="prod" parameterType="String">
+		WITH CARTVIEW AS(
+		    SELECT DISTINCT CART_MEMBER, CART_PROD FROM CART
+		), MEMBERVIEW AS(
+			SELECT MEMBER.*, CART_PROD FROM MEMBER INNER JOIN CARTVIEW ON(MEM_ID = CART_MEMBER)
+		)
+		SELECT
+		    PROD_ID
+		    , PROD_NAME
+		    , PROD_LGU
+		    , PROD_BUYER
+		    , PROD_COST
+		    , PROD_PRICE
+		    , PROD_SALE
+		    , PROD_OUTLINE
+		    , PROD_DETAIL
+		    , PROD_IMG
+		    , PROD_TOTALSTOCK
+		    , PROD_INSDATE
+		    , PROD_PROPERSTOCK
+		    , PROD_SIZE
+		    , PROD_COLOR
+		    , PROD_DELIVERY
+		    , PROD_UNIT
+		    , PROD_QTYIN
+		    , PROD_QTYSALE
+		    , PROD_MILEAGE
+		    , BUYER_ID
+		    , BUYER_NAME
+		    , BUYER_LGU
+		    , BUYER_BANK
+		    , BUYER_BANKNO
+		    , BUYER_BANKNAME
+		    , BUYER_ZIP
+		    , BUYER_ADD1
+		    , BUYER_ADD2
+		    , BUYER_COMTEL
+		    , BUYER_FAX
+		    , BUYER_MAIL
+		    , BUYER_CHARGER
+		    , BUYER_TELEXT
+		    , LPROD_ID
+		    , LPROD_GU
+		    , LPROD_NM
+            , MEM_NAME
+            , MEM_HP
+            , MEM_MAIL
+            , MEM_ADD1
+            , MEM_ADD2
+            , MEM_MILEAGE
+		FROM
+		    PROD INNER JOIN LPROD ON(PROD_LGU = LPROD_GU)
+		        INNER JOIN BUYER ON(PROD_BUYER = BUYER_ID)
+                INNER JOIN MEMBERVIEW ON (PROD_ID = CART_PROD)
+		WHERE
+		    PROD_ID = #{prodId}
+	</select>
+</mapper>
