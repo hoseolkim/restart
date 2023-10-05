@@ -30,12 +30,6 @@ public class ProdViewControllerServlet extends HttpServlet{
 		ProdVO prod = new ProdVO();
 		
 		prod.setProdId(prodId);
-		Map<String, List<String>> errors = new HashMap<String, List<String>>();
-		boolean valid = ValidationUtils.validate(prod, errors, Default.class);
-		if(!valid) {
-			resp.sendError(400,"파라미터 누락 : 잘못된 요청입니다!!");
-			return;
-		}
 		
 		prod = service.retrieveProd(prodId);
 		

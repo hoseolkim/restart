@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="isNotBlank"/>
+		<item key="selection" value="prodView"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="true"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="true"/>
 		<list key="findhistory">
+			<item value="prodView"/>
+			<item value="(\w+_\w+),"/>
 			<item value="isNotBlank"/>
 			<item value="isNotBlank&apos;"/>
-			<item value="(\w+_\w+),"/>
 			<item value="LiTAG_END"/>
 			<item value="prodSet"/>
 			<item value="memberList"/>
@@ -22,7 +23,6 @@
 			<item value="NUMBER"/>
 			<item value="VAR"/>
 			<item value="MEM_(\w+),"/>
-			<item value=":v\d"/>
 		</list>
 		<list key="replacehistory">
 			<item value=",$1"/>
@@ -52,5 +52,12 @@
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="358"/>
 		<item key="DIALOG_Y_ORIGIN" value="694"/>
+	</section>
+	<section name="org.eclipse.wst.xml.ui.internal.preferences.XMLTemplatePreferencePage$XMLEditTemplateDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="39"/>
+		<item key="DIALOG_Y_ORIGIN" value="59"/>
+		<item key="DIALOG_WIDTH" value="610"/>
+		<item key="DIALOG_HEIGHT" value="329"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
 	</section>
 </section>

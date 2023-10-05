@@ -38,13 +38,18 @@ public class PaginationInfo <T> {
 	
 	private List<T> dataList;
 	
-	private SearchVO simpleCondition;
+	private SearchVO simpleCondition;	// 단순 키워드 검색 조건
+	private T detailCondition;	// 상세 검색 조건
 	
 	public void setSimpleCondition(SearchVO simpleCondition) {
 		this.simpleCondition = simpleCondition;
 	}
 	
 	private PaginationRenderer renderer = new DefaultPaginationRenderer();
+	
+	public void setDetailCondiotion(T detailCondition) {
+		this.detailCondition = detailCondition;
+	}
 	
 	public void setRenderer(PaginationRenderer renderer) {
 		this.renderer = renderer;

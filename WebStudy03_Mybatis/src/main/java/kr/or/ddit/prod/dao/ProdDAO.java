@@ -19,9 +19,10 @@ public interface ProdDAO {
 	
 	/**
 	 * totalRecord 조회
+	 * @param paging TODO
 	 * @return
 	 */
-	public int selectTotalRecord();
+	public int selectTotalRecord(PaginationInfo<ProdVO> paging);
 	
 	/**
 	 * 페이징 처리 기반의 상품 목록 조회
@@ -29,4 +30,11 @@ public interface ProdDAO {
 	 * @return
 	 */
 	public List<ProdVO> selectProdList(PaginationInfo<ProdVO> paging);
+	
+	/**
+	 * 새로운 제품 추가
+	 * @param prodVO
+	 * @return
+	 */
+	public int insertProd(ProdVO prodVO);
 }

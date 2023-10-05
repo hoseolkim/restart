@@ -16,7 +16,7 @@ public class BootstrapPaginationRenderer implements PaginationRenderer {
 		int currentPage = paging.getCurrentPage();
 		StringBuffer html = new StringBuffer();
 		
-		html.append("<ul class='pagination'>");
+		html.append("<ul class='pagination justify-content-center'>");
 		if(startPage == 1) {
 			html.append(
 					String.format(LITAG_START_PATTERN, "disabled")

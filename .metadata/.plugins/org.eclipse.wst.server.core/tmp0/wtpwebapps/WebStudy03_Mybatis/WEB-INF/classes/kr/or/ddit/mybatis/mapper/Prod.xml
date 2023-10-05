@@ -10,49 +10,70 @@
 				<association property="member" autoMapping="true" />
 		</collection>
 	</resultMap>
+	<sql id="searchTableFrag">
+		FROM PRODVIEW
+	</sql>
+	<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodLgu)">
+				AND PROD_LGU = #{detailCondition.prodLgu}
+			</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodBuyer)">
+				AND PROD_BUYER = #{detailCondition.prodBuyer}
+			</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodName)">
+				AND INSTR(PROD_NAME, #{detailCondition.prodName}) > 0
+			</if>
+		</trim>
+	</sql>
 
-
-	<select id="selectTotalRecord" resultType="int">
+	<select id="selectTotalRecord" resultType="int" parameterType="PaginationInfo">
 		SELECT COUNT(*)
-		FROM PROD
+		<include refid="searchTableFrag" />
+		<include refid="searchFrag" />
 	</select>
-	<select id="selectProdList" parameterType="PaginationInfo" resultType="ProdVO">
+	<select id="selectProdList" resultType="ProdVO" parameterType="PaginationInfo">
 		SELECT
-			A.*
+			B.*
 		FROM
-		    (
-		    WITH CARTVIEW AS(
-		    	SELECT DISTINCT CART_PROD, CART_MEMBER FROM CART
-		    ) 
-		    SELECT
-		    	ROWNUM RNUM
-			    , PROD_ID
-			    , PROD_NAME
-			    , PROD_LGU
-			    , PROD_BUYER
-			    , PROD_COST
-			    , PROD_PRICE
-			    , PROD_SALE
-			    , PROD_OUTLINE
-			    , PROD_DETAIL
-			    , PROD_IMG
-			    , PROD_TOTALSTOCK
-			    , PROD_INSDATE
-			    , PROD_PROPERSTOCK
-			    , PROD_SIZE
-			    , PROD_COLOR
-			    , PROD_DELIVERY
-			    , PROD_UNIT
-			    , PROD_QTYIN
-			    , PROD_QTYSALE
-			    , PROD_MILEAGE
-			    , (SELECT COUNT(*) FROM CARTVIEW WHERE CART_PROD = PROD_ID ) BUYER_CNT
-			    , BUYER_NAME "buyer.buyerName"
-			    , LPROD_NM "lprod.lprodNm"
+			(SELECT
+				A.*
 			FROM
-			    PROD INNER JOIN LPROD ON(PROD_LGU = LPROD_GU)
-			        INNER JOIN BUYER ON(PROD_BUYER = BUYER_ID)
-			) A
+			    (
+			    WITH CARTVIEW AS(
+			    	SELECT DISTINCT CART_PROD, CART_MEMBER FROM CART
+			    ) 
+			    SELECT
+			    	ROWNUM RNUM
+				    , PROD_ID
+				    , PROD_NAME
+				    , PROD_LGU
+				    , PROD_BUYER
+				    , PROD_COST
+				    , PROD_PRICE
+				    , PROD_SALE
+				    , PROD_OUTLINE
+				    , PROD_DETAIL
+				    , PROD_IMG
+				    , PROD_TOTALSTOCK
+				    , PROD_INSDATE
+				    , PROD_PROPERSTOCK
+				    , PROD_SIZE
+				    , PROD_COLOR
+				    , PROD_DELIVERY
+				    , PROD_UNIT
+				    , PROD_QTYIN
+				    , PROD_QTYSALE
+				    , PROD_MILEAGE
+				    , (SELECT COUNT(*) FROM CARTVIEW WHERE CART_PROD = PROD_ID ) BUYER_CNT
+				    , BUYER_NAME "buyer.buyerName"
+				    , LPROD_NM "lprod.lprodNm"
+				    , LPROD_NM
+				    , BUYER_NAME
+				<include refid="searchTableFrag" />
+				<include refid="searchFrag" />
+				) A
+			) B
 		<![CDATA[
 		WHERE
 			RNUM >= #{startRow}
@@ -124,47 +145,63 @@
 		WHERE
 		    PROD_ID = #{prodId}
 	</select>
+	
+	<insert id="insertProd" parameterType="ProdVO">
+		<selectKey keyProperty="prodId" order="BEFORE" resultType="String">
+			SELECT 
+			    #{prodLgu}
+			    ||
+			    LPAD(
+			    NVL(TO_NUMBER(SUBSTR(MAX(PROD_ID), LENGTH(#{prodLgu})+1)),0) + 1
+			    ,6 , '0')
+			FROM PROD
+			WHERE PROD_LGU = #{prodLgu}
+		</selectKey>
+		INSERT INTO prod (
+		    prod_id
+		    , prod_name
+		    , prod_lgu
+		    , prod_buyer
+		    , prod_cost
+		    , prod_price
+		    , prod_sale
+		    , prod_outline
+		    , prod_detail
+		    , prod_img
+		    , prod_totalstock
+		    , prod_insdate
+		    , prod_properstock
+		    , prod_size
+		    , prod_color
+		    , prod_delivery
+		    , prod_unit
+		    , prod_qtyin
+		    , prod_qtysale
+		    , prod_mileage
+		) VALUES (
+		    #{prodId,jdbcType=VARCHAR}
+			, #{prodName,jdbcType=VARCHAR}
+			, #{prodLgu,jdbcType=CHAR}
+			, #{prodBuyer,jdbcType=CHAR}
+			, #{prodCost,jdbcType=NUMERIC}
+			, #{prodPrice,jdbcType=NUMERIC}
+			, #{prodSale,jdbcType=NUMERIC}
+			, #{prodOutline,jdbcType=VARCHAR}
+			, #{prodDetail,jdbcType=CLOB}
+			, #{prodImg,jdbcType=VARCHAR}
+			, #{prodTotalstock,jdbcType=NUMERIC}
+			, #{prodInsdate,jdbcType=DATE}
+			, #{prodProperstock,jdbcType=NUMERIC}
+			, #{prodSize,jdbcType=VARCHAR}
+			, #{prodColor,jdbcType=VARCHAR}
+			, #{prodDelivery,jdbcType=VARCHAR}
+			, #{prodUnit,jdbcType=VARCHAR}
+			, #{prodQtyin,jdbcType=NUMERIC}
+			, #{prodQtysale,jdbcType=NUMERIC}
+			, #{prodMileage,jdbcType=NUMERIC}
+		)
+	</insert>
+	
 </mapper>
 
-
-
-<!-- 
-SELECT
-			A.*
-		FROM
-		    (
-		    WITH CARTVIEW AS(
-		    	SELECT DISTINCT CART_PROD, CART_MEMBER FROM CART
-		    ) 
-		    SELECT
-		    	ROWNUM RNUM
-			    , PROD_ID
-			    , PROD_NAME
-			    , PROD_LGU
-			    , PROD_BUYER
-			    , PROD_COST
-			    , PROD_PRICE
-			    , PROD_SALE
-			    , PROD_OUTLINE
-			    , PROD_DETAIL
-			    , PROD_IMG
-			    , PROD_TOTALSTOCK
-			    , PROD_INSDATE
-			    , PROD_PROPERSTOCK
-			    , PROD_SIZE
-			    , PROD_COLOR
-			    , PROD_DELIVERY
-			    , PROD_UNIT
-			    , PROD_QTYIN
-			    , PROD_QTYSALE
-			    , PROD_MILEAGE
-			    , (SELECT COUNT(*) FROM CARTVIEW WHERE CART_PROD = PROD_ID ) BUYER_CNT
-			    , BUYER_NAME "buyer.buyerName"
-			    , LPROD_NM "lprod.lprodNm"
-			FROM
-			    PROD INNER JOIN LPROD ON(PROD_LGU = LPROD_GU)
-			        INNER JOIN BUYER ON(PROD_BUYER = BUYER_ID)
-			) A
-            WHERE RNUM BETWEEN 11 AND 20
- -->
 

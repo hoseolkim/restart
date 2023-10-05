@@ -1,0 +1,61 @@
+package kr.or.ddit.prod.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.mvc.ViewResolverComposite;
+import kr.or.ddit.prod.dao.OthersDAO;
+import kr.or.ddit.prod.dao.OthersDAOImpl;
+import kr.or.ddit.prod.service.ProdService;
+import kr.or.ddit.prod.service.ProdServiceImpl;
+import kr.or.ddit.utils.PopulateUtils;
+import kr.or.ddit.vo.ProdVO;
+
+@WebServlet("/prod/prodInsert.do")
+public class ProdInsertControllerServlet extends HttpServlet{
+	
+	private ProdService service = new ProdServiceImpl();
+	private OthersDAO other = new OthersDAOImpl();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("lprodList", other.selectLprodList());
+		req.setAttribute("buyerList", other.selectBuyerList(null));
+		String viewName = "prod/prodForm";
+		new ViewResolverComposite().resolveView(viewName, req, resp);
+	}
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+//		controller 의사코드
+//		1. 파라미터 맵을 ProdVO로 Populate한다
+		ProdVO prodVO = new ProdVO();
+		PopulateUtils.populate(prodVO, req.getParameterMap());
+		
+//		2. ValidateUtils로 검증한다
+		
+//			- 검증 실패시 그대로 들고, 에러메시지 들고 포워드로 돌아간다.
+//			
+//			- 검증 성공시
+//				service로 인서트 요청을 보낸다
+//					- 인서트 성공시
+//						view를 prodList로 설정후 리다이렉트한다
+//					- 인서트 실패시
+//						그래도 들고, 에러메시지 들고 포워드로 돌아간다.
+//			
+//		끝	
+		
+		
+		
+	}
+	
+	
+	
+}

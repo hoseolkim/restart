@@ -24,12 +24,12 @@ public class ProdDAOImpl implements ProdDAO{
 	}
 
 	@Override
-	public int selectTotalRecord() {
+	public int selectTotalRecord(PaginationInfo<ProdVO> paging) {
 		try(
 			SqlSession sqlSession = sqlSessionFactory.openSession();
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
-			return mapperProxy.selectTotalRecord();
+			return mapperProxy.selectTotalRecord(paging);
 		}
 	}
 
@@ -40,6 +40,16 @@ public class ProdDAOImpl implements ProdDAO{
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
 			return mapperProxy.selectProdList(paging);
+		}
+	}
+
+	@Override
+	public int insertProd(ProdVO prodVO) {
+		try(
+			SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		){
+			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
+			return mapperProxy.insertProd(prodVO);
 		}
 	}
 
