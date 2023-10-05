@@ -62,7 +62,7 @@ $(function() {
 			data: { 'lecCode': lecCode },
 			success:function(resp) {
 
-				let student = resp.studentList;
+				let student = resp.paging;
 				let lectureTrTag = "";
 				
 				if (student.length != 0) {
@@ -117,8 +117,8 @@ $(function() {
 		
 		console.log(json);
 		let settings = {
-			url: baseUrl,
-			method: "put",
+			url: `${cPath}/professor/studentList`,
+			method: "post",
 			data: json,
 			contentType: 'application/json;charset=utf-8',
 			dataType: 'json'
@@ -127,7 +127,6 @@ $(function() {
 		$.ajax(settings)
 			.done(function(resp) {
 				if (resp.success) {
-					 $(this).parents('tr').find('td:eq(0)').text(resp.modify.adrsName);
 					 $(hakjumModify).reset();
 				} else {
 					alert(resp.message);

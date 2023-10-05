@@ -17,4 +17,6 @@ public enum ServiceResult {
 	,DUPLICATED
 	
 	, INVALIDPASSWORD
+	
+	, NOTPOSSIBLE
 }

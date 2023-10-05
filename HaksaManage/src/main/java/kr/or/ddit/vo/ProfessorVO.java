@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(of = "proCd")
 public class ProfessorVO {
+	private int rnum;
+	
 	@NotBlank(groups = {Default.class,DeleteGroup.class,LoginGroup.class})
 	@Size(min = 5 , max = 5,groups = {Default.class,DeleteGroup.class,LoginGroup.class})
 	@Pattern(regexp = "\\d{2}[A-Z]\\d{2}",groups = {Default.class,DeleteGroup.class,LoginGroup.class},message = "코드 형식이 맞지 않습니다!")

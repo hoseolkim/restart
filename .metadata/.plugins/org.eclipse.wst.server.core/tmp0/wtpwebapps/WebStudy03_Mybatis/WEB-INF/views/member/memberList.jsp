@@ -42,7 +42,7 @@
 					<select name="searchType">
 						<option value>전체</option>
 						<option value="name">이름</option>
-						<option value="address">지역</option>
+						<option value="major">지역</option>
 					</select>
 					<input type="text" name="searchWord" />
 					<input type="button" value="검색" id="searchBtn" />

@@ -5,6 +5,7 @@ import java.util.List;
 import kr.or.ddit.actor.staff.dao.StaffDAO;
 import kr.or.ddit.actor.staff.dao.StaffDAOImpl;
 import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.vo.PaginationInfo;
 import kr.or.ddit.vo.ProfessorVO;
 import kr.or.ddit.vo.StudentVO;
 import kr.or.ddit.vo.SubjectVO;
@@ -21,19 +22,24 @@ public class StaffServiceImpl implements StaffService{
 	}
 
 	@Override
-	public List<SubjectVO> retrieveSubjectList() {
+	public void retrieveSubjectList(PaginationInfo<SubjectVO> paging) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
-	public List<ProfessorVO> retrieveProfessorList() {
-		return dao.selectProfessorList();
+	public void retrieveProfessorList(PaginationInfo<ProfessorVO> paging) {
+		int totalRow = dao.selectProfessorTotalCount(paging);
+		paging.setTotalRecord(totalRow);
+		List<ProfessorVO> list = dao.selectProfessorList(paging);
+		paging.setDataList(list);
 	}
 
 	@Override
-	public List<StudentVO> retrieveStudentList() {
-		return dao.selectStudentList();
+	public void retrieveStudentList(PaginationInfo<StudentVO> paging) {
+		int totalRow = dao.selectStudentTotalCount(paging);
+		paging.setTotalRecord(totalRow);
+		List<StudentVO> list = dao.selectStudentList(paging);
+		paging.setDataList(list);
 	}
 
 	@Override
@@ -55,10 +61,13 @@ public class StaffServiceImpl implements StaffService{
 	@Override
 	public ServiceResult removeStduent(String stdNo) {
 		ServiceResult result = null;
-		int rowcnt = dao.deleteStudent(stdNo);
-		
+		int rowcnt = -1;
+		try {
+			rowcnt = dao.deleteStudent(stdNo);
+		} catch(Exception e) {
+			return ServiceResult.NOTPOSSIBLE;
+		}
 		result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
-		
 		return result;
 	}
 
@@ -73,7 +82,12 @@ public class StaffServiceImpl implements StaffService{
 	}
 	@Override
 	public ServiceResult removeProffesor(String proCd) {
-		int rowcnt = dao.deleteProffesor(proCd);
+		int rowcnt = -1;
+		try {
+			rowcnt = dao.deleteProffesor(proCd);
+		}catch(Exception e) {
+			return ServiceResult.NOTPOSSIBLE;
+		}
 		return rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 }

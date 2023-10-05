@@ -7,51 +7,60 @@
 
 
 <div class="professorList">
-   <table class="table table-bordered">
-      <thead>
-      	<tr colspan="5"><button id="studentForm" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >교수 등록</button></tr>
-         <tr>
-            <th>교수코드</th>
-            <th>이름</th>
-            <th>전공과목</th>
-            <th>부서번호</th>
-            <th>전화번호</th>
-         </tr>
-      </thead>
-	
-			<%-- <c:forEach items="${proList }" var="professor">
-				<tr data-mem-id="${professor.proCd }" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					<td >${professor.proCd }</td>
-					
-					<td>${professor.proName }</td>
-					<td>${professor.proMajor }</td>
-					<td>${professor.proDeptno }</td>
-					<td>${professor.proTelno }</td>
-					<td>  <input type="button" value="삭제" id="delBtn" class="btn btn-danger" />
-					  <input type="hidden" data-pro-cd="${professorList.proCd}"/>
-					
-</td>
-				</tr>
-			</c:forEach> --%>
-<c:forEach items="${proList}" var="professor">
-    <tr>
-      <td>${professor.proCd }</td>
-      <td>${professor.proName }</td>
-      <td>${professor.proMajor }</td>
-      <td>${professor.proDeptno }</td>
-      <td>${professor.proTelno }</td>
-      <td>
-        <button type="button" class="btn btn-danger delBtn">삭제</button>
-      </td>
-    </tr>
-</c:forEach>
-			
-		
+	<table class="table table-bordered">
+		<thead>
+			<tr ><th colspan="7"><button id="studentForm" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >교수 등록</button></th></tr>
+			<tr>
+				<th>일련번호</th>
+				<th>교수코드</th>
+				<th>이름</th>
+				<th>전공과목</th>
+				<th>부서번호</th>
+				<th>전화번호</th>
+				<th>삭제하기</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:set value="${paging.dataList }" var="proList" />
+			<c:forEach items="${proList}" var="professor">
+			    <tr>
+			      <td>${professor.rnum }</td>
+			      <td>${professor.proCd }</td>
+			      <td>${professor.proName }</td>
+			      <td>${professor.proMajor }</td>
+			      <td>${professor.proDeptno }</td>
+			      <td>${professor.proTelno }</td>
+			      <td>
+			        <button type="button" class="btn btn-danger delBtn">삭제</button>
+			      </td>
+			    </tr>
+			</c:forEach>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">
+					${paging.pagingHTML }
+					<div id="searchUI" class="text-center">
+						<select name="searchType">
+							<option value>전체</option>
+							<option value="name">이름</option>
+							<option value="major">전공</option>
+						</select>
+						<input type="text" name="searchWord" />
+						<input type="button" value="검색" id="searchBtn" />
+					</div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 
 
-
+<form id="searchForm">
+	<input type="hidden" name="searchType" />
+	<input type="hidden" name="searchWord" />
+	<input type="hidden" name="page" />
+</form>
 
 <!-- Insert Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,7 +71,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="studentInsertForm" method="post" action="<%=request.getContextPath() %>/staff/professor">
+        <form id="studentInsertForm" method="post">
         	<table class="table table-bordered">
         		<tr>
         			<th>교수번호</th>
@@ -99,4 +108,25 @@
   </div>
 </div>
 
+<script>
+// =======페이징 관련 JS======================
+	$(':input[name=searchType]').val("${paging.simpleCondition.searchType}");
+	$(':input[name=searchWord]').val("${paging.simpleCondition.searchWord}");
+	function fn_paging(page){
+		searchForm.page.value = page;
+		searchForm.requestSubmit();
+	}
+	
+	$(searchUI).on("click","#searchBtn",function(event){
+		let inputs = $(this).parents('#searchUI').find(':input[name]');
+		$.each(inputs,function(idx, ipt){
+			let name = ipt.name;
+			let value = $(ipt).val();
+			$(searchForm).find(`:input[name=\${name}]`).val(value);
+		});
+		
+		$(searchForm).submit();
+		
+	});
+</script>
 <script src="${pageContext.request.contextPath }/resources/js/app/staff/staffPro.js"></script>

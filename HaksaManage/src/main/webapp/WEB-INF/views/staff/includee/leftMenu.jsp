@@ -5,7 +5,7 @@
       <div class="sidebar-sticky pt-3">
       <c:url value="/staff/student" var="studentViewURL">
       </c:url>
-       <c:url value="staff/professor" var="professorViewURL"></c:url>
+       <c:url value="/staff/professor" var="professorViewURL"></c:url>
         <ul class="nav flex-column">      
 			<li class="nav-item">
             <a class="nav-link active" href="${professorViewURL}">교수</a>

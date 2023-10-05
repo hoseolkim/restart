@@ -21,13 +21,16 @@ import kr.or.ddit.actor.staff.service.StaffServiceImpl;
 import kr.or.ddit.actor.student.service.StudentService;
 import kr.or.ddit.common.eunm.ServiceResult;
 import kr.or.ddit.mvc.ViewResolverComposite;
+import kr.or.ddit.paging.BootstrapPaginationRenderer;
 import kr.or.ddit.utils.PopulateUtils;
 import kr.or.ddit.utils.ValidationUtils;
 import kr.or.ddit.validate.grouphint.DeleteGroup;
 import kr.or.ddit.validate.grouphint.InsertGroup;
 import kr.or.ddit.vo.ClassVO;
 import kr.or.ddit.vo.LectureVO;
+import kr.or.ddit.vo.PaginationInfo;
 import kr.or.ddit.vo.ProfessorVO;
+import kr.or.ddit.vo.SearchVO;
 import kr.or.ddit.vo.StudentVO;
 
 @WebServlet("/staff/professor")
@@ -39,36 +42,26 @@ public class StaffProfessorDataControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		List<ProfessorVO> proList= service.retrieveProfessorList();
-		req.setAttribute("proList", proList);
+		String pageParam = req.getParameter("page");
+		String searchTypeParam = req.getParameter("searchType");
+		String searchWordParam = req.getParameter("searchWord");
+		SearchVO simpleCondition = new SearchVO(searchTypeParam, searchWordParam);
 		
+		PaginationInfo<ProfessorVO> paging = new PaginationInfo<ProfessorVO>();
+		paging.setRenderer(new BootstrapPaginationRenderer());
+		paging.setSimpleCondition(simpleCondition);
+		int currentPage = 1;
+		if(StringUtils.isNumeric(pageParam)) {
+			currentPage = Integer.parseInt(pageParam);
+		}
+		paging.setCurrentPage(currentPage);
+		service.retrieveProfessorList(paging);
+		req.setAttribute("paging", paging);
 		
 		String viewName = "staff/professor";
 		new ViewResolverComposite().resolveView(viewName, req, resp);
 	}
-	
-	private boolean validate(ProfessorVO vo, Map<String, String> errors) {
-		boolean valid = true;
-		if(StringUtils.isBlank(vo.getProName())) {
-			errors.put("proName","이름 누락");
-			valid = false;
-		}
-		if(StringUtils.isBlank(vo.getProMajor())) {
-			errors.put("ProMaj","학과  누락");
-			valid = false;
-		}
-	
-		if(StringUtils.isBlank(vo.getProTelno())) {
-			errors.put("proHp","전화번호");
-			valid = false;
-		}
-		
-		if(StringUtils.isBlank(vo.getProTelno())) {
-			errors.put("proDeptno","학과번호");
-			valid = false;
-		}
-		return valid;
-	}
+
 	
 	
 	@Override

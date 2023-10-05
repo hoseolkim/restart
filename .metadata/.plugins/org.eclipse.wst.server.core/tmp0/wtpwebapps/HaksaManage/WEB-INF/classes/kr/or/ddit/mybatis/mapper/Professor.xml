@@ -42,6 +42,28 @@
 		    P.PRO_CD = #{proCd,jdbcType=CHAR}
 	</select>
 	
+	<sql id="searchFrag">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodLgu)">
+				AND PROD_LGU= #{detailCondition.prodLgu}
+			</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodBuyer)">
+				AND PROD_BUYER = #{detailCondition.prodBuyer}
+			</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodName)">
+				AND INSTR(PROD_NAME, #{detailCondition.prodName}) >0
+			</if>
+		</trim>
+	</sql>
+	
+	
+	<select id="selectTotalRecord" resultType="int" parameterType="PaginationInfo">
+		SELECT 
+			COUNT(*)
+		FROM
+			CLASS
+		<include refid="searchFrag"></include>
+	</select>
 	<resultMap type="ClassVO" id="classMap" autoMapping="true">
 		<association property="studentVO" javaType="StudentVO" autoMapping="true">
 			<association property="proVO" javaType="ProfessorVO" autoMapping="true"></association>
@@ -50,11 +72,14 @@
 			<association property="subjectVO" javaType="SubjectVO" autoMapping="true"></association>
 		</association>
 	</resultMap>
-	<select id="selectStudentListOnLecture" parameterType="String" resultMap="classMap">
-		
+	<select id="selectStudentListOnLecture" parameterType="PaginationInfo" resultMap="classMap">
+		SELECT
+			A.*
+		FROM(
 		WITH STUDENTVIEW AS(
 			SELECT
-				S.STD_NO, S.STD_NAME, S.STD_ID, S.STD_TELNO, S.STD_ADD
+				ROWNUM RNUM
+			   ,S.STD_NO, S.STD_NAME, S.STD_ID, S.STD_TELNO, S.STD_ADD
 			   ,P.PRO_CD, P.PRO_NAME, P.PRO_MAJOR, P.PRO_DEPTNO, P.PRO_TELNO
 			FROM
 				STUDENT S INNER JOIN PROFESSOR P ON(S.PRO_CD = P.PRO_CD)
@@ -71,9 +96,11 @@
 			
 		WHERE
 			C.LEC_CD = #{lecCd,jdbcType=CHAR}
+		) A
+		<![CDATA[
+		WHERE RNUM >=#{startRow} AND RNUM <=#{endRow}
+		]]>		
 	</select>
-
-
 </mapper>
 
 

@@ -33,8 +33,8 @@ public class StaffStudentDataControllerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<StudentVO> studentList = service.retrieveStudentList();
-		List<ProfessorVO> professorList = service.retrieveProfessorList();
+		List<StudentVO> studentList = service.retrieveStudentList(paging);
+		List<ProfessorVO> professorList = service.retrieveProfessorList(paging);
 		
 		req.setAttribute("studentList", studentList);
 		req.setAttribute("professorList", professorList);

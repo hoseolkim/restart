@@ -2,6 +2,7 @@ package kr.or.ddit.actor.staff.dao;
 
 import java.util.List;
 
+import kr.or.ddit.vo.PaginationInfo;
 import kr.or.ddit.vo.ProfessorVO;
 import kr.or.ddit.vo.StudentVO;
 import kr.or.ddit.vo.SubjectVO;
@@ -26,9 +27,10 @@ public interface StaffDAO {
 	public List<SubjectVO> selectSubjectList();
 	/**
 	 * 모든 교수 목록 조회
+	 * @param paging TODO
 	 * @return List size로 판단
 	 */
-	public List<ProfessorVO> selectProfessorList();
+	public List<ProfessorVO> selectProfessorList(PaginationInfo<ProfessorVO> paging);
 	/**
 	 * 교수 상세정보 조회
 	 * @param proCd 교수 코드
@@ -37,9 +39,10 @@ public interface StaffDAO {
 	public ProfessorVO selectProfessor(String proCd);
 	/**
 	 * 모든 학생 조회
+	 * @param paging TODO
 	 * @return List size로 판단
 	 */
-	public List<StudentVO> selectStudentList();
+	public List<StudentVO> selectStudentList(PaginationInfo<StudentVO> paging);
 	/**
 	 * 신규 학생 입력
 	 * @param studentVO
@@ -58,4 +61,16 @@ public interface StaffDAO {
 	public int updateStudent(StudentVO studentVO);
 	   
 	public int deleteProffesor (String proCd);
+	/**
+	 * 교수 리스트 출력을 위한 totalCount 조회
+	 * @param paging
+	 * @return
+	 */
+	public int selectProfessorTotalCount(PaginationInfo<ProfessorVO> paging);
+	/**
+	 * 학생 리스트 출력을 위한 totalCount 조회
+	 * @param paging
+	 * @return
+	 */
+	public int selectStudentTotalCount(PaginationInfo<StudentVO> paging);
 }

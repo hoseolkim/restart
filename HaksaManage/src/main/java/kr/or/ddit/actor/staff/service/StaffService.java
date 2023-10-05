@@ -1,8 +1,7 @@
 package kr.or.ddit.actor.staff.service;
 
-import java.util.List;
-
 import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.vo.PaginationInfo;
 import kr.or.ddit.vo.ProfessorVO;
 import kr.or.ddit.vo.StudentVO;
 import kr.or.ddit.vo.SubjectVO;
@@ -23,20 +22,20 @@ public interface StaffService {
 	public ServiceResult createSubject(SubjectVO subjectVO);
 	/**
 	 * 현재 개설되어있는 과목 목록 조회
-	 * @return
+	 * @param paging TODO
 	 */
-	public List<SubjectVO> retrieveSubjectList();
+	public void retrieveSubjectList(PaginationInfo<SubjectVO> paging);
 	/**
 	 * 전체 교수 목록 조회
-	 * @return List size로 판단
+	 * @param paging TODO
 	 */
-	public List<ProfessorVO> retrieveProfessorList();
+	public void retrieveProfessorList(PaginationInfo<ProfessorVO> paging);
 
 	/**
 	 * 전체 학생목록 조회
-	 * @return List size로 판단
+	 * @param paging TODO
 	 */
-	public List<StudentVO> retrieveStudentList();
+	public void retrieveStudentList(PaginationInfo<StudentVO> paging);
 	/**
 	 * 신규 교수 생성
 	 * @param professorVO
