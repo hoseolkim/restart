@@ -6,7 +6,7 @@ $(function() {
 	$(".delBtn").on("click", function() {
 		if (confirm("교수를 삭제하시겠습니까?")) {
 			let $trTag = $(this).parents('tr');
-			let proCd = $trTag.find('td:eq(0)').text();
+			let proCd = $trTag.find('td:eq(1)').text();
 			let url = `${baseURL}/staff/professor/${proCd}`;
 
 			let settings = {

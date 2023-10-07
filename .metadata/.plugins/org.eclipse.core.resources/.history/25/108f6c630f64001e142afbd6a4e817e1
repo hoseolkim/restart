@@ -1,0 +1,27 @@
+package kr.or.ddit.file;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@WebServlet("/15/fileUpload.do")
+@MultipartConfig(location = "D:/sample")
+public class FileUploadControllerServlet extends HttpServlet {
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		req.getParameter("uploader");
+//		req.getParameter("uploadFile");
+		Part uploadFile = req.getPart("uploader");
+		log.info("업로드 파일 part : {}",uploadFile);
+	}
+}

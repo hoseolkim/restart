@@ -36,7 +36,6 @@ public class LoginProcessControllerServlet extends HttpServlet{
 		// 3. 인증 실패 : 로그인 폼으로 이동 -> "아이디나 비밀번호 오류" 라는 메시지를 로그인 폼에서 alert 창으로 출력.
 		
 //		1. request body 영역에 대한 디코딩 설정.
-		req.setCharacterEncoding("UTF-8");
 //		2. 파라미터 획득
 		String memId = req.getParameter("memId");
 		String memPass = req.getParameter("memPass");
@@ -59,7 +58,7 @@ public class LoginProcessControllerServlet extends HttpServlet{
 					//				6-1. 인증 성공
 					//					- 웰컴 페이지 이동
 					viewName = "redirect:/";
-					session.setAttribute("authId", memId);
+					session.setAttribute("authMember", inputData);
 					break;
 				case INVALIDPASSWORD:
 					//				6-2. 인증 실패
@@ -87,14 +86,3 @@ public class LoginProcessControllerServlet extends HttpServlet{
 		}		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

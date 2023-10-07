@@ -4,7 +4,7 @@
 
 <c:set value="${errors }" var="errors" />
 <c:remove var="errors" scope="request"/>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<table class="table table-bordered">
 <!-- 		<tr> -->
 <!-- 			<th>상품코드</th> -->
@@ -71,8 +71,10 @@
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td><input type="text" name="prodImg" class="form-control"
-				required value="${prod.prodImg}" /><span class="error">${errors.prodImg}</span></td>
+			<td>
+				<input type="file" name="prodImage" class="form-control" required />
+				<span class="error">${errors.prodImg}</span>
+			</td>
 		</tr>
 		<tr>
 			<th>총재고</th>

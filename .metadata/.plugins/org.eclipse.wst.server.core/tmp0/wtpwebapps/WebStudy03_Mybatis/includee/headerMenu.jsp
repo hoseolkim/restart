@@ -11,7 +11,7 @@
       <a class="nav-link" href="<c:url value='/member/memberList.do'/>">회원관리</a>
     </li>
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="<c:url value='/prod/prodView.do?what=P101000001'/>">상품관리</a>
+      <a class="nav-link" href="<c:url value='/prod/prodList.do'/>">상품관리</a>
     </li>
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="#">제조사관리</a>

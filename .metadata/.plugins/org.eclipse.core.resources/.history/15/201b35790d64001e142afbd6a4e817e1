@@ -1,0 +1,9 @@
+package kr.or.ddit.file;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet("/15/fileUpload.do")
+public class FileUploadControllerServlet extends HttpServlet {
+
+}

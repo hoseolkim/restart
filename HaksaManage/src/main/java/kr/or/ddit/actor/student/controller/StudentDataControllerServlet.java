@@ -38,7 +38,6 @@ public class StudentDataControllerServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
 		
 		String lecCd = req.getParameter("lecCd");
 		HttpSession session = req.getSession();

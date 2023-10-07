@@ -1,0 +1,16 @@
+package kr.or.ddit.filter.wrapper;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+public class PrincipalHttpServletRequestWrapper extends HttpServletRequestWrapper {
+
+	public PrincipalHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
+	}
+	
+	
+	
+	
+
+}

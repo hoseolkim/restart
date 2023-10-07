@@ -1,17 +1,22 @@
 package kr.or.ddit.prod.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.common.enumpkg.ServiceResult;
+import kr.or.ddit.file.utils.MultipartFile;
+import kr.or.ddit.file.utils.StandardMultipartHttpServletRequest;
 import kr.or.ddit.mvc.ViewResolverComposite;
 import kr.or.ddit.prod.dao.OthersDAO;
 import kr.or.ddit.prod.dao.OthersDAOImpl;
@@ -23,9 +28,12 @@ import kr.or.ddit.validate.grouphint.InsertGroup;
 import kr.or.ddit.vo.ProdVO;
 import lombok.extern.slf4j.Slf4j;
 
+@MultipartConfig
 @WebServlet("/prod/prodInsert.do")
 @Slf4j
 public class ProdInsertControllerServlet extends HttpServlet{
+	
+	private String prodImagesUrl = "/resources/prodImages";
 	
 	private ProdService service = new ProdServiceImpl();
 	private OthersDAO other = new OthersDAOImpl();
@@ -44,11 +52,29 @@ public class ProdInsertControllerServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
 //		controller 의사코드
 //		1. 파라미터 맵을 ProdVO로 Populate한다
+		
 		ProdVO prodVO = new ProdVO();
 		PopulateUtils.populate(prodVO, req.getParameterMap());
+		
+		if(req instanceof StandardMultipartHttpServletRequest) {
+			MultipartFile prodImage = ((StandardMultipartHttpServletRequest) req).getFile("prodImage");
+			
+			if(!prodImage.isEmpty()) {
+				String realPath = req.getServletContext().getRealPath(prodImagesUrl);
+				File saveFolder = new File(realPath);
+				
+				String fileName = UUID.randomUUID().toString();
+				
+				File saveFile = new File(saveFolder, fileName);
+				// 상품 이미지의 2진 데이터 저장
+				prodImage.transferTo(saveFile);
+				prodVO.setProdImg(fileName);
+			}
+		}
+		
+		
 		String viewName = "prod/prodForm";
 		req.setAttribute("lprodList", other.selectLprodList());
 		req.setAttribute("buyerList", other.selectBuyerList(null));

@@ -1,0 +1,14 @@
+package kr.or.ddit.filter.wrapper;
+
+import kr.or.ddit.vo.MemberVO;
+
+public class MemberVOWrapper {
+	
+	private MemberVO adaptee;
+
+	public MemberVOWrapper(MemberVO adaptee) {
+		super();
+		this.adaptee = adaptee;
+	}
+	
+}
