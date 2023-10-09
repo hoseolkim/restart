@@ -27,5 +27,6 @@
 		<mapper resource="kr/or/ddit/mybatis/mapper/Professor.xml" />
 		<mapper resource="kr/or/ddit/mybatis/mapper/Staff.xml" />
 		<mapper resource="kr/or/ddit/mybatis/mapper/Student.xml" />
+		<mapper resource="kr/or/ddit/mybatis/mapper/Others.xml" />
 	</mappers>
 </configuration>

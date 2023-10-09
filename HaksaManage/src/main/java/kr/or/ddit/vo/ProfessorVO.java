@@ -1,5 +1,6 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -15,7 +16,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "proCd")
-public class ProfessorVO {
+public class ProfessorVO implements Serializable{
 	private int rnum;
 	
 	@NotBlank(groups = {Default.class,DeleteGroup.class,LoginGroup.class})
@@ -33,6 +34,10 @@ public class ProfessorVO {
 	@NotBlank
 	@Pattern(regexp = "010-\\d{3,4}-\\d{4}")
 	private String proTelno;
+	
+	private String proImg;
+	
+	private String proState;
 	
 	// 1:N 관계
 	// 해당 교수가 강의하는 강좌 정보가 담긴 LectureVO Set

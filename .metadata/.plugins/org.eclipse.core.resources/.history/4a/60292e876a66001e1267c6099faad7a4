@@ -1,0 +1,9 @@
+package kr.or.ddit.actor.staff.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet({"/staff/studentDetailView","/staff/professorDetailView"})
+public class StaffDetailViewControllerServlet extends HttpServlet{
+
+}

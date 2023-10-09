@@ -1,0 +1,27 @@
+package kr.or.ddit.actor.staff.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet({"/staff/studentDetailView","/staff/professorDetailView"})
+public class StaffDetailViewControllerServlet extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String param = req.getParameter("who");
+		
+		if(param.trim().length()==5) {
+			
+		}else if(param.trim().length()==10) {
+			
+		}else {
+			resp.sendError(400);
+		}
+		
+		
+	}
+}

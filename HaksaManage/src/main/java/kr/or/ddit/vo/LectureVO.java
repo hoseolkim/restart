@@ -1,5 +1,6 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.validation.constraints.Max;
@@ -16,7 +17,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "lecCd")
-public class LectureVO {
+public class LectureVO implements Serializable{
 	@NotBlank(groups = {Default.class,DeleteGroup.class})
 	@Size(max = 30,groups = {Default.class,DeleteGroup.class})
 	private String lecCd;

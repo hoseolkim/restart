@@ -31,7 +31,6 @@ public class StaffStudentUpdateControllerServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		System.out.println("넘어옴");
-		req.setCharacterEncoding("UTF-8");
 		
 		StudentVO student = new StudentVO();
 		req.setAttribute("student", student);

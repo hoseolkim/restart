@@ -1,0 +1,93 @@
+package kr.or.ddit.vo;
+
+import java.util.List;
+
+import kr.or.ddit.paging.BootstrapPaginationRenderer;
+import kr.or.ddit.paging.DefaultPaginationRederer;
+import kr.or.ddit.paging.PaginationRenderer;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+/**
+ * 페이징 처리와 관련된 모든 속성을 가진 JavaBean.
+ */
+@ToString
+@NoArgsConstructor
+public class PaginationInfo<T> {
+	
+	
+	public PaginationInfo(int screenSize, int blockSize) {
+		super();
+		this.screenSize = screenSize;
+		this.blockSize = blockSize;
+	}
+
+	private int totalRecord;	//select 쿼리 필요
+	private int currentPage;	// request parameter
+	
+	private int screenSize = 10;	//미리 초기화 - 개발자 임의 선택
+	private int blockSize = 5;		//미리 초기화 - 개발자 임의 선택
+	
+	//연산식 필요
+	private int totalPage;
+	private int startRow;
+	private int endRow;
+	private int startPage;
+	private int endPage;
+	
+	
+	
+	private List<T> dataList;
+	
+	private SearchVO simpleCondition;	//단순 키워드 검색 조건 프로퍼티
+	private T detailCondition;	// 상세 검색 조건 프로퍼티
+	
+	private PaginationRenderer renderer = new DefaultPaginationRederer();
+	
+	private String paginationgHTML;
+	
+	public void setDetailCondition(T detailCondition) {
+		this.detailCondition = detailCondition;
+	}
+	
+	public void setSimpleCondition(SearchVO simpleCondition) {
+		this.simpleCondition = simpleCondition;
+	}
+	
+	public void setRenderer(PaginationRenderer renderer) {
+		this.renderer = renderer;
+		this.paginationgHTML = getPagingHTML();
+	}
+	
+	public void setDataList(List<T> dataList) {
+		this.dataList = dataList;
+	}
+	
+	public void setTotalRecord(int totalRecord) {
+		this.totalRecord = totalRecord;
+		
+		totalPage = (totalRecord+ (screenSize -1)) / screenSize;
+	}
+	
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+		
+		endRow =currentPage * screenSize;
+		startRow = endRow - (screenSize-1);
+		endPage = blockSize * ((currentPage+(blockSize-1)) / blockSize);
+		startPage = endPage - (blockSize-1);
+	}
+	
+	public int getEndPage() {
+		
+		return endPage < totalPage ? endPage: totalPage;
+	}
+	
+	public String getPagingHTML() {
+		return renderer.renderPagination(this);
+	}
+
+		
+	
+}

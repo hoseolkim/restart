@@ -1,5 +1,6 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -16,7 +17,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "stdNo")
-public class StudentVO {
+public class StudentVO implements Serializable{
 	@NotBlank(groups = {UpdateGroup.class, DeleteGroup.class,LoginGroup.class})
 	@Size(min = 10 , max = 10, groups = {UpdateGroup.class,DeleteGroup.class,LoginGroup.class})
 	@Pattern(regexp = "\\d{2}[A-Z]{2}\\d{6}", groups = {UpdateGroup.class,DeleteGroup.class,LoginGroup.class},message = "학번 형식이 맞지 않습니다!")
@@ -36,6 +37,10 @@ public class StudentVO {
 	@NotBlank
 	@Size(min = 5 , max = 5)
 	private String proCd;
+	
+	private String stdImg;
+	
+	private String stdState;
 	
 	// 1:1 관계
 	private ProfessorVO proVO;

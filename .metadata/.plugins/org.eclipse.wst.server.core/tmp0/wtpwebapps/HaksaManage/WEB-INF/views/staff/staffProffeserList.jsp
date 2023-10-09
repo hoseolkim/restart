@@ -20,26 +20,13 @@
 				<th>삭제하기</th>
 			</tr>
 		</thead>
-		<tbody>
-			<c:set value="${paging.dataList }" var="proList" />
-			<c:forEach items="${proList}" var="professor">
-			    <tr>
-			      <td>${professor.rnum }</td>
-			      <td>${professor.proCd }</td>
-			      <td>${professor.proName }</td>
-			      <td>${professor.proMajor }</td>
-			      <td>${professor.proDeptno }</td>
-			      <td>${professor.proTelno }</td>
-			      <td>
-			        <button type="button" class="btn btn-danger delBtn">삭제</button>
-			      </td>
-			    </tr>
-			</c:forEach>
+		<tbody id="profList">
 		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="7">
-					${paging.pagingHTML }
+				<div id="pagingHTML">
+				</div>
 					<div id="searchUI" class="text-center">
 						<select name="searchType">
 							<option value>전체</option>
@@ -55,8 +42,8 @@
 	</table>
 </div>
 
-
-<form id="searchForm">
+<c:url value="/staff/professor" var="getList" />
+<form id="searchForm" action="${getList }">
 	<input type="hidden" name="searchType" />
 	<input type="hidden" name="searchWord" />
 	<input type="hidden" name="page" />
@@ -71,7 +58,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="studentInsertForm" method="post">
+      <c:url value="/staff/professor" var="insertUrl" />
+        <form id="studentInsertForm" method="post" action="${insertUrl }" enctype="multipart/form-data">
         	<table class="table table-bordered">
         		<tr>
         			<th>교수번호</th>
@@ -83,16 +71,20 @@
         			<td><input type="text" name="proName" class="form-control" placeholder="교수명" required /></td>
         		</tr>
         		<tr>
-        			<th>학과</th>
+        			<th>전공</th>
         			<td><input type="text" name="proMajor" class="form-control" placeholder="학과" required /></td>
         		</tr>
         		<tr>
-        			<th>학과번호</th>
+        			<th>학과코드</th>
         			<td><input type="text" name="proDeptno" class="form-control" placeholder="전화번호" required /></td>
         		</tr>
         		<tr>
         			<th>전화번호</th>
         			<td><input type="text" name="proTelno" class="form-control" placeholder="전화번호" required /></td>
+        		</tr>
+        		<tr>
+        			<th>교수 사진</th>
+        			<td><input type="file" name="proImage" class="form-control" /></td>
         		</tr>
         	
         	
@@ -107,26 +99,8 @@
     </div>
   </div>
 </div>
-
 <script>
-// =======페이징 관련 JS======================
-	$(':input[name=searchType]').val("${paging.simpleCondition.searchType}");
-	$(':input[name=searchWord]').val("${paging.simpleCondition.searchWord}");
-	function fn_paging(page){
-		searchForm.page.value = page;
-		searchForm.requestSubmit();
-	}
-	
-	$(searchUI).on("click","#searchBtn",function(event){
-		let inputs = $(this).parents('#searchUI').find(':input[name]');
-		$.each(inputs,function(idx, ipt){
-			let name = ipt.name;
-			let value = $(ipt).val();
-			$(searchForm).find(`:input[name=\${name}]`).val(value);
-		});
-		
-		$(searchForm).submit();
-		
-	});
+$(':input[name=searchType]').val("${paging.simpleCondition.searchType}");
+$(':input[name=searchWord]').val("${paging.simpleCondition.searchWord}");
 </script>
 <script src="${pageContext.request.contextPath }/resources/js/app/staff/staffPro.js"></script>

@@ -15,8 +15,7 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public StudentVO retrieveStudent(String stdNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectStudent(stdNo);
 	}
 
 	@Override

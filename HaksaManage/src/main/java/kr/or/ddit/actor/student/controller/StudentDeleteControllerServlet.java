@@ -1,6 +1,7 @@
 package kr.or.ddit.actor.student.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.actor.student.service.StudentService;
 import kr.or.ddit.actor.student.service.StudentServiceImpl;
 import kr.or.ddit.common.eunm.ServiceResult;
-import kr.or.ddit.mvc.ViewResolverComposite;
 import kr.or.ddit.utils.ValidationUtils;
 import kr.or.ddit.validate.grouphint.DeleteGroup;
 import kr.or.ddit.vo.ClassVO;
@@ -28,14 +27,15 @@ public class StudentDeleteControllerServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession();
 		
 		String reqUri = req.getRequestURI();
 		
 		ClassVO classVo = new ClassVO();
 		String lecCd = reqUri.substring(reqUri.lastIndexOf("/")+1);
-		String stdNo = (String)req.getSession().getAttribute("loginId");
+		
+		Principal principal = req.getUserPrincipal();
+		String stdNo = principal.getName();
+		
 		classVo.setStdNo(stdNo);
 		classVo.setLecCd(lecCd);
 		String message = null;

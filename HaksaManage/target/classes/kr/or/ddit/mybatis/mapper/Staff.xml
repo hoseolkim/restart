@@ -79,17 +79,31 @@
 			FROM STUDENT
 		</selectKey>
 		INSERT INTO student (
-		    STD_NO, STD_NAME, STD_ID
-		    , STD_TELNO, STD_ADD, PRO_CD
+		    STD_NO
+		    , STD_NAME
+		    , STD_ID
+		    , STD_TELNO
+		    , STD_ADD
+		    , PRO_CD
+		    , STD_IMG
 		) VALUES (
-		    #{stdNo}, #{stdName}, #{stdId}
-		    , #{stdTelno}, #{stdAdd}, #{proCd}
+		    #{stdNo}
+		    , #{stdName}
+		    , #{stdId}
+		    , #{stdTelno}
+		    , #{stdAdd}
+		    , #{proCd}
+		    , #{stdImg,jdbcType=VARCHAR}
 		)
 	</insert>
 	
 	<delete id="deleteStudent" parameterType="string">
-		DELETE FROM STUDENT
-		WHERE STD_NO = #{stdNo}
+		UPDATE
+			STUDENT
+		SET
+			STD_STATE = 3
+		WHERE
+			STD_NO = #{stdNo}
 	</delete>
 	
 	<select id="selectProfessorList" resultType="ProfessorVO" parameterType="PaginationInfo">
@@ -109,14 +123,17 @@
    </select>
      
    <delete id="deleteProffesor" parameterType="string">
-      DELETE FROM PROFESSOR
-      WHERE PRO_CD = #{proCd}
+      UPDATE
+      	PROFESSOR
+      SET
+      	PRO_STATE = 2
+      WHERE
+      	PRO_CD = #{proCd}
    </delete>
 
    <insert id="insertProfessor" parameterType="ProfessorVO">
-     
-       INSERT INTO PROFESSOR (PRO_CD, PRO_NAME, PRO_MAJOR, PRO_DEPTNO, PRO_TELNO)
-       VALUES (#{proCd}, #{proName}, #{proMajor}, #{proDeptno}, #{proTelno})
+       INSERT INTO PROFESSOR (PRO_CD, PRO_NAME, PRO_MAJOR, PRO_DEPTNO, PRO_TELNO, PRO_IMG)
+       VALUES (#{proCd}, #{proName}, #{proMajor}, #{proDeptno}, #{proTelno},#{proImg,jdbcType=VARCHAR})
    </insert>
 	
 </mapper>

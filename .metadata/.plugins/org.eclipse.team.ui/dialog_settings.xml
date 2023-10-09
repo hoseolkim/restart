@@ -6,7 +6,7 @@
 	<section name="SynchronizeViewSettings">
 		<item key="linkWithEditor" value="false"/>
 		<item key="lastactiveparticipant_id" value="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant"/>
-		<item key="lastactiveparticipant_sec_id" value="1696547795568"/>
+		<item key="lastactiveparticipant_sec_id" value="1696841556937"/>
 		<section name="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant.1695811633812">
 		</section>
 		<section name="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant.1695812181702">
@@ -77,6 +77,12 @@
 		<section name="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant.1696547795568">
 			<item key="org.eclipse.team.ui.activeModelProvider" value="org.eclipse.team.ui.activeModelProvider"/>
 			<item key="org.eclipse.team.ui.P_SYNCVIEWPAGE_MODE" value="1"/>
+		</section>
+		<section name="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant.1696810156316">
+		</section>
+		<section name="org.eclipse.team.svn.ui.synchronize.update.SynchronizeModelParticipant.1696841556937">
+			<item key="org.eclipse.team.ui.activeModelProvider" value="org.eclipse.team.ui.activeModelProvider"/>
+			<item key="org.eclipse.team.ui.P_SYNCVIEWPAGE_MODE" value="4"/>
 		</section>
 	</section>
 	<section name="SynchronizeWizard">

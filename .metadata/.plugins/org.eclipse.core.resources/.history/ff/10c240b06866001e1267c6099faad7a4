@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<table class="table table-bordered">
+	<tr>
+		<td rowspan="5" colspan="2">
+			<c:url value="/resources/images/student/${student.stdImg }" var="stdImage" />
+			<c:url value="/resources/images/altImage.png" var="altImg" />
+			<img src="${stdImage }" alt="${altImg }">
+		</td>
+	</tr>
+	<tr></tr><tr></tr><tr></tr><tr></tr>
+	<tr>
+		<th>학번</th>
+		<td>
+		${student.stdNo }
+		</td>
+	</tr>
+	<tr>
+		<th>학생 이름</th>
+		<td>
+			${student.stdName }
+		</td>
+	</tr>
+	<tr>
+		<th>학생 주민번호</th>
+		<td>
+			${student.stdId }
+		</td>
+	</tr>
+	<tr>
+		<th>학생 연락처</th>
+		<td>
+			${student.stdTelno }
+		</td>
+	</tr>
+	<tr>
+		<th>학생 주소</th>
+		<td>
+			${student.add }
+		</td>
+	</tr>
+	<tr>
+		<th>지도 교수</th>
+		<td>
+			${student.proVO.proName }
+		</td>
+	</tr>
+	<c:set value="${student.classSet }" var="class" />
+	<c:forEach >
+	
+	</c:forEach>
+</table>

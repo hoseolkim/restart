@@ -1,6 +1,7 @@
 package kr.or.ddit.actor.student.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,8 @@ public class StudentDataControllerServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String stdNo = (String)req.getSession().getAttribute("loginId");
+		Principal principal = req.getUserPrincipal();
+		String stdNo = principal.getName();
 		List<LectureVO> lectureList = service.retrieveLectureList(stdNo);
 		List<LectureVO> myList = service.retrieveMyLectureList(stdNo);
 		req.setAttribute("myList", myList);
@@ -40,8 +42,9 @@ public class StudentDataControllerServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String lecCd = req.getParameter("lecCd");
-		HttpSession session = req.getSession();
-		String stdNo = (String)session.getAttribute("loginId");
+		
+		Principal principal = req.getUserPrincipal();
+		String stdNo = principal.getName();
 		ClassVO classVO = new ClassVO();
 		classVO.setLecCd(lecCd);
 		classVO.setStdNo(stdNo);

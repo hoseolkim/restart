@@ -28,8 +28,6 @@ public class ProfessorStudentListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
-		
 		String lecCode = req.getParameter("lecCode");
 		
 		ClassVO detailCondition = new ClassVO();
@@ -43,9 +41,9 @@ public class ProfessorStudentListServlet extends HttpServlet {
 		}
 		PaginationInfo<ClassVO> paging = new PaginationInfo<>();
 		
-		List<ClassVO> studentList = service.retrieveStudentListOnLecture(paging);
 		paging.setDetailCondition(detailCondition);
 		paging.setCurrentPage(currentpage);
+		List<ClassVO> studentList = service.retrieveStudentListOnLecture(paging);
 		
 		req.setAttribute("paging", paging);
 		

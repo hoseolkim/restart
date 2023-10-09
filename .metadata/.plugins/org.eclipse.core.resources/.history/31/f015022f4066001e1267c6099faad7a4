@@ -1,0 +1,36 @@
+package kr.or.ddit.filter;
+
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+public class GeneratePrincipalFilter extends HttpServletRequestWrapper{
+
+	private HttpServletRequest request;
+	
+	public GeneratePrincipalFilter(HttpServletRequest request) {
+		super(request);
+		this.request = request;
+	}
+
+	@Override
+	public Principal getUserPrincipal() {
+		Object loginUser = request.getSession().getAttribute("loginId");
+		
+		if(loginUser != null) {
+			
+			
+			
+		}else {
+			
+		}
+		
+		
+		
+		
+		return super.getUserPrincipal();
+	}
+	
+	
+}

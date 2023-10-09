@@ -1,11 +1,14 @@
 package kr.or.ddit.actor.staff.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,8 @@ import kr.or.ddit.actor.staff.service.StaffService;
 import kr.or.ddit.actor.staff.service.StaffServiceImpl;
 import kr.or.ddit.actor.student.service.StudentService;
 import kr.or.ddit.common.eunm.ServiceResult;
+import kr.or.ddit.filter.utils.MultipartFile;
+import kr.or.ddit.filter.utils.StandardMultipartHttpServletRequest;
 import kr.or.ddit.mvc.ViewResolverComposite;
 import kr.or.ddit.paging.BootstrapPaginationRenderer;
 import kr.or.ddit.utils.PopulateUtils;
@@ -33,15 +38,15 @@ import kr.or.ddit.vo.ProfessorVO;
 import kr.or.ddit.vo.SearchVO;
 import kr.or.ddit.vo.StudentVO;
 
+@MultipartConfig
 @WebServlet("/staff/professor")
 public class StaffProfessorDataControllerServlet extends HttpServlet {
 	private StaffService service = new StaffServiceImpl();
 	private ProfessorService professorService = new ProfessorServiceImpl();
-	
+	private final String PROFESSOR_IMG_FOLDER = "/resources/img/professor";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
 		String pageParam = req.getParameter("page");
 		String searchTypeParam = req.getParameter("searchType");
 		String searchWordParam = req.getParameter("searchWord");
@@ -58,8 +63,8 @@ public class StaffProfessorDataControllerServlet extends HttpServlet {
 		service.retrieveProfessorList(paging);
 		req.setAttribute("paging", paging);
 		
-		String viewName = "staff/professor";
-		new ViewResolverComposite().resolveView(viewName, req, resp);
+		String viewName = "/jsonView.view";
+		req.getRequestDispatcher(viewName).forward(req, resp);
 	}
 
 	
@@ -67,43 +72,52 @@ public class StaffProfessorDataControllerServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
-		
-		ProfessorVO proVo = new ProfessorVO();
-		req.setAttribute("proVo", proVo);
-		
-		Map<String, String[]> parameterMap = req.getParameterMap();
-		
-		PopulateUtils.populate(proVo, parameterMap);
-		
-		System.out.println(proVo.toString());
-		
-		Map<String, List<String>> errors = new HashMap<>();
-		req.setAttribute("errors", errors);
-		
-		boolean valid = ValidationUtils.validate(proVo, errors, InsertGroup.class);
-		
-		String viewName = null;
-		if(valid) {
-			ServiceResult result = service.createProfessor(proVo);
-			switch (result) {
-			case DUPLICATED:
-				req.setAttribute("message", "교수번호");
+		if(req instanceof StandardMultipartHttpServletRequest) {
+			MultipartFile file = ((StandardMultipartHttpServletRequest) req).getFile("proImage");
+			String realPath = req.getServletContext().getRealPath(PROFESSOR_IMG_FOLDER);
+			
+			File imageFolder = new File(realPath);
+			
+			ProfessorVO proVo = new ProfessorVO();
+			req.setAttribute("proVo", proVo);
+			
+			Map<String, String[]> parameterMap = req.getParameterMap();
+			
+			PopulateUtils.populate(proVo, parameterMap);
+			
+			String filename = UUID.randomUUID().toString();
+			proVo.setProImg(filename);
+			
+			File dest = new File(imageFolder, filename);
+			
+			Map<String, List<String>> errors = new HashMap<>();
+			req.setAttribute("errors", errors);
+			
+			boolean valid = ValidationUtils.validate(proVo, errors, InsertGroup.class);
+			
+			String viewName = null;
+			if(valid) {
+				ServiceResult result = service.createProfessor(proVo);
+				switch (result) {
+				case DUPLICATED:
+					req.setAttribute("message", "교수번호");
+					viewName = "staff/professor";
+					break;
+				case OK:
+					file.transferTo(dest);
+					viewName = "redirect:/staff/professorList";
+					break;								
+				default:
+					req.setAttribute("message", "서버 오류");
+					viewName = "staff/professor";
+					break;
+				}
+			}else {
 				viewName = "staff/professor";
-				break;
-			case OK:
-				viewName = "redirect:/staff/professor";
-				break;								
-			default:
-				req.setAttribute("message", "서버 오류");
-				viewName = "staff/professor";
-				break;
 			}
-		}else {
-			viewName = "staff/professor";
+			
+			new ViewResolverComposite().resolveView(viewName, req, resp);
 		}
-		
-		new ViewResolverComposite().resolveView(viewName, req, resp);
 	}
 	
 }

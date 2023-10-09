@@ -53,7 +53,7 @@ public class LoginProcessControllerServlet extends HttpServlet{
 					ServiceResult result = service.professorLogin(professorVO);
 					if(result == ServiceResult.OK) {
 						// 로그인 성공시
-						session.setAttribute("loginId", id);
+						session.setAttribute("loginId", professorVO);
 						viewName = "redirect:/professorMain.tiles";
 					}else {
 						message = "존재하지 않는 아이디입니다!";
@@ -70,7 +70,7 @@ public class LoginProcessControllerServlet extends HttpServlet{
 				if(isStudent) {
 					ServiceResult result = service.studentLogin(studentVO);
 					if(result == ServiceResult.OK) {
-						session.setAttribute("loginId", id);
+						session.setAttribute("loginId", studentVO);
 						// 로그인 성공시
 						viewName = "redirect:/studentMain.tiles";
 					}else {

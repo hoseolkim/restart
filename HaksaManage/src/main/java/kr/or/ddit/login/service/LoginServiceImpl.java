@@ -1,5 +1,9 @@
 package kr.or.ddit.login.service;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 import kr.or.ddit.common.eunm.ServiceResult;
 import kr.or.ddit.login.dao.LoginDAO;
 import kr.or.ddit.login.dao.LoginDAOImpl;
@@ -11,13 +15,36 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public ServiceResult studentLogin(StudentVO studentVO) {
 		StudentVO student = dao.studentLogin(studentVO);
-		return student != null ? ServiceResult.OK : ServiceResult.FAIL;
+		ServiceResult result = null;
+		if(student != null) {
+			try {
+				BeanUtils.copyProperties(studentVO, student);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAIL;
+		}
+		return result;
 	}
 
 	@Override
 	public ServiceResult professorLogin(ProfessorVO professorVO) {
 		ProfessorVO professor = dao.professorLogin(professorVO);
-		return professor != null ? ServiceResult.OK : ServiceResult.FAIL;
+		ServiceResult result = null;
+		if(professor !=null) {
+			try {
+				BeanUtils.copyProperties(professorVO, professor);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAIL;
+		}
+		
+		return result;
 	}
 
 }

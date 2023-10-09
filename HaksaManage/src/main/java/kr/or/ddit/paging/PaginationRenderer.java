@@ -1,7 +1,10 @@
 package kr.or.ddit.paging;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import kr.or.ddit.vo.PaginationInfo;
 
+@JsonSerialize
 public interface PaginationRenderer {
 	
 	/**

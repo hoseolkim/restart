@@ -1,5 +1,6 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = {"cnsDate","stdNo","proCd"})
-public class CounselVO {
+public class CounselVO implements Serializable{
 	@NotBlank(groups = {Default.class,DeleteGroup.class})
 	private LocalDate cnsDate;
 	@NotBlank(groups = InsertGroup.class)

@@ -1,0 +1,44 @@
+package kr.or.ddit.actor.staff.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+
+import kr.or.ddit.actor.professor.service.ProfessorService;
+import kr.or.ddit.actor.professor.service.ProfessorServiceImpl;
+import kr.or.ddit.actor.student.service.StudentService;
+import kr.or.ddit.actor.student.service.StudentServiceImpl;
+import kr.or.ddit.vo.StudentVO;
+
+@WebServlet({"/staff/studentDetailView","/staff/professorDetailView"})
+public class StaffDetailViewControllerServlet extends HttpServlet{
+	private StudentService studentSerivce = new StudentServiceImpl();
+	private ProfessorService professorService = new ProfessorServiceImpl();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String param = req.getParameter("who");
+		if(StringUtils.isBlank(param)) {
+			resp.sendError(400);
+			return;
+		}
+		String viewName = null;
+		if(param.trim().length()==5) {
+			StudentVO student = studentSerivce.retrieveStudent(param);
+			if(student != null) {
+				req.setAttribute("student", student);
+				viewName = "modules/studentDetailView";
+			}
+		}else if(param.trim().length()==10) {
+			
+		}else {
+			resp.sendError(400);
+			return;
+		}
+	}
+}

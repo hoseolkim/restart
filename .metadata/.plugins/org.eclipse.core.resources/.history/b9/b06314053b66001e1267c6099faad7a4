@@ -1,0 +1,25 @@
+package kr.or.ddit.filter.wrapper;
+
+import java.security.Principal;
+
+import kr.or.ddit.vo.ProfessorVO;
+
+public class ProfessorVOWrapper implements Principal {
+
+	private ProfessorVO adaptee;
+	
+	public ProfessorVOWrapper(ProfessorVO adaptee) {
+		super();
+		this.adaptee = adaptee;
+	}
+
+
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

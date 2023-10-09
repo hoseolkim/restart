@@ -11,18 +11,38 @@
 		<association property="subjectVO" javaType="SubjectVO" autoMapping="true"></association>
 	</association>
 </resultMap>
-	<select id="selectStudent" parameterType="String" resultType="StudentVO">
+<resultMap type="StudentVO" id="studentDetail" autoMapping="true">
+	<id property="stdNo" column="STD_NO"/>
+	<association property="proVO" javaType="ProfessorVO" autoMapping="true" />
+	<collection property="classSet" autoMapping="true" ofType="ClassVO">
+		<association property="lectureVO" autoMapping="true" javaType="LectureVO">
+			<association property="professorVO" javaType="ProfessorVO">
+				<result column="LEC_PRO" property="proName" javaType="String"/>
+			</association>
+			<association property="subjectVO" javaType="SubjectVO" autoMapping="true" />
+		</association>
+	</collection>
+</resultMap>
+	<select id="selectStudent" parameterType="String" resultMap="studentDetail">
+		WITH CLASSVIEW AS(
+		    SELECT P.PRO_NAME LEC_PRO, C.*, S.*
+		    FROM CLASS C INNER JOIN LECTURE L ON (C.LEC_CD = L.LEC_CD)
+                INNER JOIN PROFESSOR P ON (L.PRO_CD = P.PRO_CD)
+                INNER JOIN SUBJECT S ON (L.SUB_CD = S.SUB_CD)
+			)
 		SELECT
-			STD_NO
-			, STD_NAME
-			, STD_ID
-			, STD_TELNO
-			, STD_ADD
-			, PRO_CD
-		FROM
-			STUDENT
+			P.PRO_NAME
+		    , STD_NAME
+		    , STD_ID
+		    , STD_TELNO
+		    , STD_ADD
+			, CLASSVIEW.*
+			, STD_IMG
+			, STD_STATE
+		FROM STUDENT S LEFT OUTER JOIN CLASSVIEW ON (S.STD_NO = CLASSVIEW.STD_NO)
+            INNER JOIN PROFESSOR P ON (S.PRO_CD = P.PRO_CD)
 		WHERE
-			STD_NO = #{stdNo}
+			S.STD_NO = #{stdNo}
 	</select>
 	<select id="selectLecutreList" parameterType="String" resultMap="lecture">
 	WITH LECTUREVIEW AS(

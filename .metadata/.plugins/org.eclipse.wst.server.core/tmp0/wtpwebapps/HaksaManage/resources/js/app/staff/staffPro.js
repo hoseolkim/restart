@@ -1,8 +1,76 @@
 /**
  * 
  */
+
+function fn_paging(page){
+	searchForm.page.value = page;
+	searchForm.requestSubmit();
+}
+
+var makeProfessorListTrTag = (professor)=>{
+	let trTag = 
+	`
+		<tr>
+			<td>${professor.rnum }</td>
+			<td>${professor.proCd }</td>
+			<td>${professor.proName }</td>
+			<td>${professor.proMajor }</td>
+			<td>${professor.proDeptno }</td>
+			<td>${professor.proTelno }</td>
+			<td>
+				<button type="button" class="btn btn-danger delBtn">삭제</button>
+			</td>
+		</tr>
+	`;
+	return trTag;
+};
+
 $(function() {
 	const baseURL = $(document.body).data('contextPath');
+	$(searchUI).on("click","#searchBtn",function(event){
+		let inputs = $(this).parents('#searchUI').find(':input[name]');
+		$.each(inputs,function(idx, ipt){
+			let name = ipt.name;
+			let value = $(ipt).val();
+			$(searchForm).find(`:input[name=${name}]`).val(value);
+		});
+		
+		$(searchForm).submit();
+		
+	});
+	
+	$(searchForm).on('submit',function(event){
+		event.preventDefault();
+		let url = this.action;
+		let data = $(this).serialize();
+		
+		let settings = {
+			url : url,
+			data : data,
+			dataType : 'json'
+		}
+		$.ajax(settings)
+			.done(function(resp){
+				let paging = resp.paging;
+				let professorList = paging.dataList;
+				let code = "";
+				if(professorList?.length > 0){
+					$.each(professorList,function(i,v){
+						code += makeProfessorListTrTag(v);
+					})
+				}else{
+					code += "<tr><td colspan='7'>교수 데이터가 없습니다</td></tr>";
+				}
+				let pagingCode = `${paging.pagingHTML}`;
+				$(pagingHTML).html(pagingCode);
+				$(profList).html(code);
+			})
+		
+		return false;
+	});
+	
+	$(searchForm).submit();
+	
 	$(".delBtn").on("click", function() {
 		if (confirm("교수를 삭제하시겠습니까?")) {
 			let $trTag = $(this).parents('tr');

@@ -1,5 +1,7 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +14,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = {"stdNo","lecCd"})
-public class ClassVO {
+public class ClassVO implements Serializable{
 	private Integer rnum;
 	
 	@NotBlank(groups = {Default.class,DeleteGroup.class})

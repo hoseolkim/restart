@@ -44,8 +44,18 @@ public class StaffServiceImpl implements StaffService{
 
 	@Override
 	public ServiceResult createProfessor(ProfessorVO professorVO) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			int res = dao.insertProfessor(professorVO);
+			ServiceResult result = null;
+			if(res > 0 ) {
+				result = ServiceResult.OK;
+			}else {
+				result = ServiceResult.FAIL;
+			}
+			return result;
+		} catch (Exception e) {
+			return ServiceResult.DUPLICATED;
+		}
 	}
 
 	@Override

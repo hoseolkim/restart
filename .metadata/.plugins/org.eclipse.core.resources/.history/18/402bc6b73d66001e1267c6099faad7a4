@@ -1,0 +1,21 @@
+package kr.or.ddit.filter.wrapper;
+
+import java.security.Principal;
+
+public class AdminWrapper implements Principal {
+	
+	private String adminUser;
+	
+	public AdminWrapper(String adminUser) {
+		super();
+		this.adminUser = adminUser;
+	}
+
+
+
+	@Override
+	public String getName() {
+		return adminUser;
+	}
+
+}

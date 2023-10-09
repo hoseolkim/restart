@@ -1,0 +1,43 @@
+package kr.or.ddit.filter.wrapper;
+
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+import kr.or.ddit.vo.ProfessorVO;
+import kr.or.ddit.vo.StudentVO;
+
+
+public class PrincipalHttpServletRequestWrapper extends HttpServletRequestWrapper {
+	private HttpServletRequest request;
+	
+	public PrincipalHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
+		this.request = request;
+	}
+	
+	@Override
+	public Principal getUserPrincipal() {
+		Object authMember = getSession().getAttribute("loginId");
+		if(authMember!=null) {
+			// 로그인 아이디가 있을 경우에 이쪽에서 분기처리
+			if(authMember instanceof String) {
+				String admin = (String) authMember;
+				AdminWrapper principal = new AdminWrapper(admin);
+				return principal;
+			}else if(authMember instanceof StudentVO) {
+				StudentVO studentVO = (StudentVO) authMember;
+				StudentVOWrapper principal = new StudentVOWrapper(studentVO);
+				return principal;
+			}else {
+				ProfessorVO professorVO = (ProfessorVO) authMember;
+				ProfessorVOWrapper principal = new ProfessorVOWrapper(professorVO);
+				return principal;
+			}
+		}else {
+			return super.getUserPrincipal();
+		}
+	}
+
+}

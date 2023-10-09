@@ -1,6 +1,7 @@
 package kr.or.ddit.actor.professor.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,9 @@ public class ProfessorDataControllerServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
+		Principal principal = req.getUserPrincipal();
+		String proCd = principal.getName();
 		
-		
-		String proCd = (String)req.getSession().getAttribute("loginId");
 		List<LectureVO> lectureList = new ArrayList<>();
 		lectureList = service.retrieveLectureList(proCd);
 		

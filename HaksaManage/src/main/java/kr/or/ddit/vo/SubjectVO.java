@@ -1,5 +1,7 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +14,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "subCd")
-public class SubjectVO {
+public class SubjectVO implements Serializable{
 	@NotBlank(groups = {Default.class,DeleteGroup.class})
 	@Size(min = 8,max = 8,groups = {Default.class,DeleteGroup.class})
 	private String subCd;

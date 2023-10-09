@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.actor.staff.dao.Others">
+	<resultMap type="ProfessorVO" id="prof" autoMapping="true">
+		<collection property="lectureSet" ofType="LectureVO" autoMapping="true">
+			<association property="classVOSet" javaType="ClassVO" autoMapping="true" >
+				<association property="studentVO" autoMapping="true" javaType="StudentVO" />
+			</association>
+		</collection>
+	</resultMap>
+	<select id="selectProfessorList">
+		
+	</select>
+</mapper>

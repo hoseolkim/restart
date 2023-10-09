@@ -1,5 +1,6 @@
 package kr.or.ddit.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import kr.or.ddit.paging.BootstrapPaginationRenderer;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class PaginationInfo<T> {
+public class PaginationInfo<T> implements Serializable{
 	
 	
 	public PaginationInfo(int screenSize, int blockSize) {
@@ -36,6 +37,8 @@ public class PaginationInfo<T> {
 	private int endRow;
 	private int startPage;
 	private int endPage;
+	
+	
 	
 	private List<T> dataList;
 	

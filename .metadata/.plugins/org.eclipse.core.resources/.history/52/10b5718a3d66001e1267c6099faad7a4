@@ -1,0 +1,24 @@
+package kr.or.ddit.filter.wrapper;
+
+import java.security.Principal;
+
+import kr.or.ddit.vo.StudentVO;
+
+public class StudentVOWrapper implements Principal {
+	
+	private StudentVO adaptee;
+	
+	public StudentVOWrapper(StudentVO adaptee) {
+		super();
+		this.adaptee = adaptee;
+	}
+
+	@Override
+	public String getName() {
+		return adaptee.getStdNo();
+	}
+
+	public String getRealUser() {
+		return adaptee;
+	}
+}

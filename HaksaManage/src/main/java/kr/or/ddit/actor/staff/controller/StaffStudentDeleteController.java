@@ -33,7 +33,6 @@ public class StaffStudentDeleteController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
 		
 		String uri = StringUtils.substringAfter(req.getRequestURI(), req.getContextPath());
 		int lastIdx = uri.lastIndexOf("/");

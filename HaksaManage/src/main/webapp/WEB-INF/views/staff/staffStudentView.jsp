@@ -23,42 +23,40 @@
 			<th></th>
 		</tr>
 	</thead>
-	<tbody>
-		<c:choose>
-			<c:when test="${not empty studentList }">
-				<c:forEach items="${studentList }" var="student">
-					<tr>
-						<td data-std-no="${student.stdNo }">${student.stdNo }</td>
-						<td>${student.stdName }</td>
-						<td>${student.stdId }</td>
-						<td>${student.stdTelno }</td>
-						<td>${student.stdAdd }</td>
-						<td data-pro-cd="${student.proVO.proCd }">${student.proVO.proName }</td>
-						<td>
-							<button id="stdUdtBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentDetail" >수정</button>
-							<button id="stdDelBtn" class="btn btn-primary" data-bs-toggle="modal" >삭제</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="7">학생 정보가 없음</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
-		
+	<tbody id="studentList">
 	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="7">
+				<div id="paginationHTML">
+				</div>
+				<div id="searchUI" class="text-center">
+					<select name="searchType">
+						<option value>전체</option>
+						<option value="name">이름</option>
+						<option value="address">주소</option>
+					</select>
+					<input type="text" name="searchWord" />
+					<input type="button" value="검색" id="searchBtn" />
+				</div>
+			</td>
+		</tr>
+	</tfoot>
 </table>
-
+<c:url value="/staff/student" var="studentList" />
+<form id="searchForm" action="${studentList }">
+	<input type="hidden" name="searchType" />
+	<input type="hidden" name="searchWord" />
+	<input type="hidden" name="page" />
+</form>
 
 
 <!-- Update Modal -->
-<div class="modal fade" id="studentDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="studentDetail" tabindex="-1" aria-labelledby="studentDetailModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Student Detail</h1>
+        <h1 class="modal-title fs-5" id="studentDetailModal">Student Detail</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -124,7 +122,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="studentInsertForm" method="post" action="<%=request.getContextPath() %>/staff/student">
+        <form id="studentInsertForm" method="post" action="<%=request.getContextPath() %>/staff/student" enctype="multipart/form-data">
         	<table class="table table-bordered">
         		<tr>
         			<th>학생명</th>
@@ -141,6 +139,10 @@
         		<tr>
         			<th>주소</th>
         			<td><input type="text" name="stdAdd" class="form-control" placeholder="주소" required /></td>
+        		</tr>
+        		<tr>
+        			<th>학생사진</th>
+        			<td><input type="file" accept="image/*" name="stdImage" class="form-control"/></td>
         		</tr>
         		<tr>
         			<th>담당교수</th>
@@ -172,6 +174,25 @@
   </div>
 </div>
 
+<!-- Detail Modal -->
+<div class="modal fade" id="studentDetailView" tabindex="-1" aria-labelledby="studentDetailViewModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="studentDetailViewModal">학생 상세정보</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="detailViewBody">
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(':input[name=searchType]').val("${paging.simpleCondition.searchType}");
+$(':input[name=searchWord]').val("${paging.simpleCondition.searchWord}");
+</script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/app/staff/staff.js"></script>
 
 

@@ -1,7 +1,10 @@
 package kr.or.ddit.paging;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import kr.or.ddit.vo.PaginationInfo;
 
+@JsonSerialize
 public class BootstrapPaginationRenderer implements PaginationRenderer {
 	
 	private final String PATTERN =" <li class=\"page-item\"><a class=\"page-link\" href=\"javascript:;\" onclick=\"fn_paging(%d);\">%s</a></li>\r\n"
