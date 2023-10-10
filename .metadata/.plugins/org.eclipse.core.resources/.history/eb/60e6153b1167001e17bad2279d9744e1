@@ -1,0 +1,9 @@
+package kr.or.ddit.prod.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet("/prod/prodUpdate.do")
+public class ProdUpdateControllerServlet extends HttpServlet{
+
+}

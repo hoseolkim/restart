@@ -1,0 +1,30 @@
+package kr.or.ddit.mvc;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.prod.controller.ProdListController;
+
+/**
+ * Front Controller Pattern 구조의 fornt controller
+ * command handler 에 대해 사전 작업과 사후 작업을 처리할 수 있는 front
+ */
+public class DispatcherServlet extends HttpServlet{
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String uri = req.getRequestURI();
+		
+		uri = uri.substring(req.getContextPath().length());
+		
+		ProdListController controller = new ProdListController();
+		String viewName = controller.prodList(req, resp);
+		
+		new ViewResolverComposite().resolveView(viewName, req, resp);
+	}
+}
