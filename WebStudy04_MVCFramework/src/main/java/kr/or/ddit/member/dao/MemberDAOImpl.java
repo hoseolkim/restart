@@ -41,6 +41,7 @@ public class MemberDAOImpl implements MemberDAO {
 			return mapperProxy.selectMember(memId);
 		}
 	}
+
 	@Override
 	public int selectTotalRecord(PaginationInfo<MemberVO> paging) {
 		try(
@@ -50,7 +51,7 @@ public class MemberDAOImpl implements MemberDAO {
 			return mapperProxy.selectTotalRecord(paging);
 		}
 	}
-
+	
 	@Override
 	public List<MemberVO> selectMemberList(PaginationInfo paging) {
 		try(
@@ -74,13 +75,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int deleteMember(String memId) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession(true);	
-		){
-			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
-			return mapperProxy.deleteMember(memId);
-		}
+				SqlSession sqlSession = sqlSessionFactory.openSession(true);	
+			){
+				MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
+				return mapperProxy.deleteMember(memId);
+			}
 	}
-
 
 }
 

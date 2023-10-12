@@ -12,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class MemberServiceImplTest {
-
-	MemberService service = new MemberServiceImpl();
 	
+	MemberService service = new MemberServiceImpl();
+
 	@Test
 	void testCreateMember() {
 		fail("Not yet implemented");
@@ -30,10 +30,8 @@ class MemberServiceImplTest {
 		PaginationInfo paging = new PaginationInfo();
 		paging.setCurrentPage(2);
 		List<MemberVO> dataList = service.retrieveMemberList(paging);
-		
-		log.info("paging : {}",paging);
-		log.info("dataList's Size : {}",dataList.size());
-		
+		log.info("paging : {}", paging);
+		log.info("dataList's size : {}", dataList.size());
 	}
 
 	@Test

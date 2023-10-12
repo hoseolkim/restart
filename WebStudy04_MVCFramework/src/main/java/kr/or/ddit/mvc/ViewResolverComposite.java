@@ -11,20 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewResolverComposite implements ViewResolver {
 	private List<ViewResolver> viewResolvers;
 	
+	private String prefix;
+	private String suffix;
+	
 	public ViewResolverComposite() {
 		super();
 		viewResolvers = new ArrayList<>();
-		viewResolvers.add(new BeanNameViewResolver());
-		// tiles definition 용
-		viewResolvers.add(new TilesViewResolver());
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		// single jsp 일때..
-		viewResolvers.add(resolver);
 	}
 
+	@Override
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	@Override
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
 
+	public void addViewResolver(ViewResolver resolver) {
+		viewResolvers.add(resolver);
+	}
 
 
 	@Override
@@ -40,7 +46,7 @@ public class ViewResolverComposite implements ViewResolver {
 					single.resolveView(viewName, req, resp);
 					break;
 				}catch(Exception e) {
-//					System.err.println(e.getMessage());
+					System.err.println(e.getMessage());
 					continue;
 				}
 			}
@@ -48,3 +54,16 @@ public class ViewResolverComposite implements ViewResolver {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

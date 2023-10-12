@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchVO implements Serializable {
+public class SearchVO implements Serializable{
 	private String searchType;
 	private String searchWord;
 }

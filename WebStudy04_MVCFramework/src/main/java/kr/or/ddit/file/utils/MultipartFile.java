@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 업로드 파일 하나에 해당하는 객체 타입.
+ * 업로드 파일 하나의 해당하는 객체 타입.
  *
  */
 public interface MultipartFile {
@@ -25,4 +25,18 @@ public interface MultipartFile {
 	
 	public void transferTo(File dest) throws IOException;
 	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

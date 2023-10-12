@@ -1,9 +1,0 @@
-package kr.or.ddit.file.utils;
-
-/**
- * 업로드 파일 하나에 해당하는 객체 타입.
- *
- */
-public interface MultipartFile {
-	public byte[] getBytes();
-}

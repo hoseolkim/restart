@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.common.view.JsonView;
 
-
 public class BeanNameViewResolver implements ViewResolver {
-
+	
 	private Map<String, View> container;
 	{
 		container = new HashMap<>();
 		container.put("jsonView", new JsonView());
 	}
-	// ex) jsonView
+
+//	ex) xmlView
 	@Override
 	public void resolveView(String viewName, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -33,4 +33,23 @@ public class BeanNameViewResolver implements ViewResolver {
 			throw new IOException(String.format("%s 에 해당하는 view 를 찾지 못했음", viewName));
 		}
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

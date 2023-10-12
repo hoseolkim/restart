@@ -13,8 +13,6 @@ class CustomSqlSessionFactoryBuilderTest {
 			return CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
 		});
 		assertNotNull(factory);
-		
-		
 	}
 
 }

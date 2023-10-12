@@ -31,6 +31,7 @@ public interface MemberDAO {
 	 * @return 존재하지 않으면, null 반환
 	 */
 	public MemberVO selectMember(@Param("memId") String memId);
+	
 	/**
 	 * totalRecord 조회
 	 * @param paging TODO
@@ -56,3 +57,21 @@ public interface MemberDAO {
 	 */
 	public int deleteMember(String memId);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

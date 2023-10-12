@@ -22,55 +22,60 @@ import kr.or.ddit.validate.grouphint.UpdateGroup;
 import kr.or.ddit.vo.MemberVO;
 
 class HibernateValidatorTest {
-	private static Validator validator;
 	
+	private static Validator validator;
+
 	@BeforeAll
 	static void beforeClass() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-	
-	
-	
-	
-	
+
 	@Test
 	void test() {
 		MemberVO member = new MemberVO();
 //		member.setMemId("a001");
 //		member.setMemPass("asdf");
-//		member.setMemMail("asd@asd.asd");
-//		member.setMemName("가나다라마가나다라마");
+//		member.setMemMail("aa@naver.com");
+//		member.setMemName("김은대");
 //		member.setMemZip("12345");
 //		member.setMemAdd1("대전");
-//		member.setMemAdd2("중구가 시키드나");
+//		member.setMemAdd2("오류");
 		member.setMemRegno1("1");
-		member.setMemRegno2("2");
-		Set<ConstraintViolation<MemberVO>> constraintViolations = validator.validate(member,InsertGroup.class);
-		
+		member.setMemRegno2("1");
+		Set<ConstraintViolation<MemberVO>> constraintViolations = validator.validate(member, InsertGroup.class);
 		if(constraintViolations.isEmpty()) {
 			System.out.println("검증 통과");
 		}else {
-			Map<String, List<String>> errors = new HashMap<String, List<String>>();
+			Map<String, List<String>> errors = new HashMap<>();
 			constraintViolations.stream()
-				.forEach((cv)->{
-					String propName = cv.getPropertyPath().toString();
-					String message = cv.getMessage();
-					List<String> already = errors.get(propName);
-					if(already==null) {
-						already = new ArrayList<String>();
-						errors.put(propName, already);
-					}
-					already.add(message);
-				});
+						.forEach((cv)->{
+							String propName = cv.getPropertyPath().toString();
+							String message = cv.getMessage();
+							List<String> already = errors.get(propName);
+							if(already==null) {
+								already = new ArrayList<String>();
+								errors.put(propName, already);
+							}
+							already.add(message);
+							
+						});
 			errors.forEach((k,v)->{
-					System.err.printf("%s : %s\n",k,v);
+				System.err.printf("%s : %s\n", k, v);
 			});
 		}
-		
-		
-		
-		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

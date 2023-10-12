@@ -13,13 +13,13 @@ import javax.servlet.http.Part;
 
 /**
  * multipart request 를 wrapping 할 adapter.
- * Part 를 MultipartFile의 구현체로 변환.
+ * Part 를 MultipartFile 의 구현체로 변환.
  *
  */
 public class StandardMultipartHttpServletRequest extends HttpServletRequestWrapper{
 	
-	private Map<String, List<MultipartFile>> fileMap; 
-	
+	private Map<String, List<MultipartFile>> fileMap;
+
 	public StandardMultipartHttpServletRequest(HttpServletRequest request) throws IOException, ServletException {
 		super(request);
 		fileMap = new LinkedHashMap<>();
@@ -33,9 +33,8 @@ public class StandardMultipartHttpServletRequest extends HttpServletRequestWrapp
 			}
 			String partName = part.getName();
 			MultipartFile file = new StandardMultipartFile(part);
-			
 			List<MultipartFile> already = fileMap.get(partName);
-			if(already == null) {
+			if(already==null) {
 				already = new ArrayList<>();
 				fileMap.put(partName, already);
 			}
@@ -59,6 +58,21 @@ public class StandardMultipartHttpServletRequest extends HttpServletRequestWrapp
 	public Map<String, List<MultipartFile>> getFileMap() {
 		return fileMap;
 	}
-	
-	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="mod"/>
+		<item key="selection" value="lombok"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="true"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="true"/>
 		<list key="findhistory">
+			<item value="lombok"/>
 			<item value="mod"/>
 			<item value="req.setCharacterEncoding(&quot;utf-8&quot;);"/>
 			<item value="prodView"/>
@@ -22,7 +23,6 @@
 			<item value="repository"/>
 			<item value="required"/>
 			<item value="DATE"/>
-			<item value="NUMBER"/>
 		</list>
 		<list key="replacehistory">
 			<item value=",$1"/>

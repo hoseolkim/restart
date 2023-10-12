@@ -1,9 +1,0 @@
-package kr.or.ddit.vo;
-
-/**
- * 페이징 처리와 관련된 모든 속성을 가진 자바빈.
- *
- */
-public class PaginationInfo {
-	
-}

@@ -9,10 +9,10 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class StandardMultipartFile implements MultipartFile {
-
-	private Part adaptee;
+public class StandardMultipartFile implements MultipartFile{
 	
+	private Part adaptee;
+
 	public StandardMultipartFile(Part adaptee) {
 		super();
 		this.adaptee = adaptee;
@@ -59,3 +59,17 @@ public class StandardMultipartFile implements MultipartFile {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

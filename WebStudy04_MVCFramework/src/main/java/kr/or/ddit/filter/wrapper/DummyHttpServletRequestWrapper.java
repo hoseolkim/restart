@@ -11,10 +11,10 @@ public class DummyHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	
 	private String specificData = "SPECIFIC";
 	private Map<String, Cookie> cookieMap;
-	
+
 	public DummyHttpServletRequestWrapper(HttpServletRequest request) {
 		super(request);
-		cookieMap = new LinkedHashMap<String, Cookie>();
+		cookieMap = new LinkedHashMap<>();
 		for(Cookie tmp : request.getCookies()) {
 			cookieMap.put(tmp.getName(), tmp);
 		}
@@ -23,7 +23,7 @@ public class DummyHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	public Cookie getCookie(String cookieName){
 		return cookieMap.get(cookieName);
 	}
-	
+
 	@Override
 	public String getParameter(String name) {
 		if("who".equals(name)) {
@@ -34,5 +34,5 @@ public class DummyHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	
 	public String getSpecificData() {
 		return specificData;
-	}	
+	}
 }

@@ -20,8 +20,30 @@ public interface OthersDAO {
 	
 	/**
 	 * 특정 분류에 해당하는 제조사 목록 조회
-	 * @param lprodGu lprodGu 없는 경우, 전체 제조사 목록 조회
+	 * @param lprodGu 없는 경우, 전체 제조사 목록 조회
 	 * @return
 	 */
 	public List<BuyerVO> selectBuyerList(@Param("lprodGu") String lprodGu);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,5 @@
 package kr.or.ddit.vo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -15,9 +13,6 @@ class MemberVOTest {
 
 	@Test
 	void test() throws JsonProcessingException {
-		
-		
-		
 		MemberVO target = new MemberVO();
 		target.setMemBir(LocalDate.now());
 		
@@ -25,18 +20,23 @@ class MemberVOTest {
 						.registerModule(new JavaTimeModule())
 						.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 						.writeValueAsString(target);
-		
 		System.out.println(json);
-		
 	}
-	
-	@Test
-	void selfTest() {
-//		MemberVO vo = new MemberVO();
-//		vo.setMemAdd1(null);
-		
-		String target = LocalDate.now().toString();
-		System.out.println(target);
-		
-	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

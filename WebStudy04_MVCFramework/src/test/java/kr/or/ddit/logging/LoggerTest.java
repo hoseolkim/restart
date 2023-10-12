@@ -10,8 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class LoggerTest {
-
+	
 //	private static final Logger log = LoggerFactory.getLogger(LoggerTest.class);
+	
 	@Test
 	void test() {
 //		System.out.println("출력 로그");
@@ -20,15 +21,26 @@ class LoggerTest {
 		log.error("error 메시지");
 		
 		int number = 34;
-		
-		log.info("number = {}",number);
+		log.info("number = {}", number);
 		try {
-			if(1 == 1)
+			if(1==1)
 				throw new NullPointerException("강제 발생 예외");
-		} catch (NullPointerException e) {
+		}catch (NullPointerException e) {
 			log.error(e.getMessage(), e);
 		}
-		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

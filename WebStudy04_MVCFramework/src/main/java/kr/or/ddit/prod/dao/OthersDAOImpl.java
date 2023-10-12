@@ -10,24 +10,27 @@ import kr.or.ddit.vo.BuyerVO;
 import kr.or.ddit.vo.LprodVO;
 
 public class OthersDAOImpl implements OthersDAO {
-	private SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+
+	private SqlSessionFactory sqlSessionFactory = 
+			CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+	
 	@Override
 	public List<LprodVO> selectLprodList() {
 		try(
-			SqlSession session = sqlSessionFactory.openSession();
+			SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
-			OthersDAO mapper = session.getMapper(OthersDAO.class);
-			return mapper.selectLprodList();
+			OthersDAO mapperProxy = sqlSession.getMapper(OthersDAO.class);
+			return mapperProxy.selectLprodList();
 		}
 	}
 
 	@Override
 	public List<BuyerVO> selectBuyerList(String lprodGu) {
 		try(
-			SqlSession session = sqlSessionFactory.openSession();
+			SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
-			OthersDAO mapper = session.getMapper(OthersDAO.class);
-			return mapper.selectBuyerList(lprodGu);
+			OthersDAO mapperProxy = sqlSession.getMapper(OthersDAO.class);
+			return mapperProxy.selectBuyerList(lprodGu);
 		}
 	}
 

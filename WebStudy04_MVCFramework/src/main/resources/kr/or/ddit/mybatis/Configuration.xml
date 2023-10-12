@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-	<properties resource="kr/or/ddit/db/dbInfo.properties"/>
+	<properties resource="kr/or/ddit/db/dbInfo.properties" />
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
@@ -23,10 +23,22 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="kr/or/ddit/mybatis/mapper/Member.xml" />
-		<mapper resource="kr/or/ddit/mybatis/mapper/Address.xml" />
-		<mapper resource="kr/or/ddit/mybatis/mapper/DataBaseProperty.xml" />
-		<mapper resource="kr/or/ddit/mybatis/mapper/Prod.xml" />
-		<mapper resource="kr/or/ddit/mybatis/mapper/Others.xml" />
+		<mapper resource="kr/or/ddit/mybatis/mapper/Member.xml"/>
+		<mapper resource="kr/or/ddit/mybatis/mapper/Address.xml"/>
+		<mapper resource="kr/or/ddit/mybatis/mapper/Prod.xml"/>
+		<mapper resource="kr/or/ddit/mybatis/mapper/Others.xml"/>
 	</mappers>
 </configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+

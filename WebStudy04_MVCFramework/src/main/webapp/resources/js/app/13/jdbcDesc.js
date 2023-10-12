@@ -3,31 +3,25 @@
  */
 $(function(){
 	let settings = {
-		dataType : "json",
-		success : function(resp){
-			let result = "";
-			if(resp.list.length>0){
-				$.each(resp.list,function(i,v){
-					result += `
-					<tr>
-						<td>${v.propertyName}</td>
-						<td>${v.propertyValue}</td>
-						<td>${v.description}</td>
-					</tr>
+		dataType:"json",
+		success:function(resp){
+			let dataList = resp.dataList;
+			let trTags = "";
+			if(dataList.length > 0){
+				$.each(dataList, function(idx, vo){
+					trTags += `
+						<tr>
+							<td>${vo.propertyName}</td>
+							<td>${vo.propertyValue}</td>
+							<td>${vo.description}</td>
+						</tr>
 					`;
-				})
+				});
 			}else{
-				result += "<tr><td colspan='3'>데이터가 없음..</td></tr>";
+				trTags += "<tr><td colspan='3'>조회 결과 없음.</td></tr>";
 			}
-			$('tbody').html(result);
-		},
-		error : function(jqXhr,status,error){
-			console.log("jqXhr : ", jqXhr);
-			console.log("status : ", status);
-			console.log("error : ", error);
+			$(listBody).html(trTags);
 		}
-	}
-	
-	
+	};
 	$.ajax(settings);
 });

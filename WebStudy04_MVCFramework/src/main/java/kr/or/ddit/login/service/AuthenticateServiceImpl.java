@@ -16,17 +16,18 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 	public ServiceResult authenticate(MemberVO inputData) {
 		MemberVO saved = memberDAO.selectMemberForAuth(inputData);
 		ServiceResult result = null;
-		
 		if(saved!=null) {
 			String inputPass = inputData.getMemPass();
 			String savedPass = saved.getMemPass();
-			if(inputPass.equals(savedPass)) {
+			if(savedPass.equals(inputPass)) {
 				try {
 					BeanUtils.copyProperties(inputData, saved);
 					result = ServiceResult.OK;
+					
 				} catch (IllegalAccessException | InvocationTargetException e) {
 					throw new RuntimeException(e);
 				}
+				
 			}else {
 				result = ServiceResult.INVALIDPASSWORD;
 			}
@@ -35,4 +36,5 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 		}
 		return result;
 	}
+
 }

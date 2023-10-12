@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>fileUploadForm.jsp</title>
+<title>Insert title here</title>
 </head>
 <body>
 <h4>파일 업로드 양식</h4>
@@ -16,11 +16,32 @@
 </form>
 <c:if test="${not empty uploader }">
 	uploader : ${uploader }
-	<c:remove var="uploader" scope="session"/>
+	<c:remove var="uploader" scope="session"/> 
 </c:if>
 <c:if test="${not empty fileUrl }">
-	<img src="<c:url value='${fileUrl }'/>" />
-	<c:remove var="fileUrl" scope="session"/>
+	<img src="<c:url value='${fileUrl }'/>"/>
+	<c:remove var="fileUrl" scope="session"/> 
 </c:if>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

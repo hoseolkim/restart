@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-    <c:if test="${not empty message }">
-    	<script>
-    		alert("${message}");;
-    	</script>
-    	<c:remove var="message" scope="session" />
-    </c:if>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${not empty message }">
+	<script>
+		alert("${message}");
+	</script>
+	<c:remove var="message" scope="session"/>
+</c:if>    
     
 	<table class="table table-bordered">
 		<tr>
@@ -19,9 +19,8 @@
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td>
-				${member.memImg }
-				<img src="data:image/*;base64, ${member.memImgBase64 }" />
+			<td>	
+				<img src="data:image/*;base64,${member.memImgBase64 }"/>
 			</td>
 		</tr>
 		<tr>
@@ -95,32 +94,33 @@
 		<tr>
 			<td colspan="2">
 				<a href="${pageContext.request.contextPath }/member/memberUpdate.do" class="btn btn-primary">수정</a>
-				<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</a>
+				<a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">탈퇴</a>
 			</td>
 		</tr>
 	</table>
 	<table class="table table-bordered">
-		<thead>
+		<thead class="table-dark">
 			<tr>
 				<th>상품명</th>
 				<th>상품분류</th>
-				<th>판매자이름</th>
+				<th>제조사이름</th>
 				<th>구매일자</th>
 				<th>구매수량</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:set var="cartSet" value="${member.cartSet }" />
+			<c:set var="cartSet" value="${member.cartSet }"/>
 			<c:choose>
 				<c:when test="${not empty cartSet }">
 					<c:forEach items="${cartSet }" var="cart">
+						<c:set var="prod" value="${cart.prod }" />
 						<c:url value="/prod/prodView.do" var="prodViewURL">
-							<c:param name="what" value="${cart.prod.prodId }" />
+							<c:param name="what" value="${prod.prodId }" />
 						</c:url>
 						<tr>
-							<td><a href="${prodViewURL }">${cart.prod.prodName }</a></td>
-							<td>${cart.prod.lprod.lprodNm }</td>
-							<td>${cart.prod.buyer.buyerName }</td>
+							<td><a href="${prodViewURL }">${prod.prodName }</a></td>
+							<td>${prod.lprod.lprodNm }</td>
+							<td>${prod.buyer.buyerName }</td>
 							<td>${cart.cartDate }</td>
 							<td>${cart.cartQty }</td>
 						</tr>
@@ -132,49 +132,42 @@
 					</tr>
 				</c:otherwise>
 			</c:choose>
-<%-- 		<c:if test="${not empty member.cartSet }"> --%>
-<%-- 			<c:forEach items="${member.cartSet }" var="prodVO"> --%>
-<!-- 				<tr> -->
-<!-- 				<th>구매상품</th> -->
-<%-- 				<td><c:out value="${prodVO.prodName }"/></td> --%>
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
-<%-- 		</c:if> --%>
-<%-- 		<c:if test="${empty member.cartSet }"> --%>
-<!-- 			<tr> -->
-<!-- 				<td colspan="2">구매 한 상품 목록이 없습니다.</td> -->
-<!-- 			</tr> -->
-<%-- 		</c:if> --%>
-			
 		</tbody>
 	</table>
-		
-		
-<!-- Modal -->
+	
+	<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 탈퇴</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-       <form id="delForm" action='<c:url value="/member/memberDelete.do"/>' method="post">
+      <form action='<c:url value="/member/memberDelete.do" />' method="post">
 	      <div class="modal-body">
-	        	<input type="password" name="password" class="form-control" />
+	        <input type="password" name="password" class="form-control" />
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <input type="submit" class="btn btn-primary" value="탈퇴하기">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Save changes</button>
 	      </div>
-       </form>
+      </form>
     </div>
   </div>
 </div>
+	
 <script>
-	$(exampleModal).on('hidden.bs.modal',function(){
-		$(this).find('form')[0].reset();
+	$(exampleModal).on("hidden.bs.modal", function(){
+		$(this).find("form")[0].reset();
 	});
-	$(delBtn).on('click',function(){
-		delForm.submit();
-	})
-</script>
+</script>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

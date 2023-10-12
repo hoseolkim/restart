@@ -1,9 +1,0 @@
-package kr.or.ddit.prod.dao;
-
-/**
- * 상품 분류 선택과 제조사 선택 UI를 구성하기 위한 Persistence Layer
- *
- */
-public interface OthersDAO {
-
-}

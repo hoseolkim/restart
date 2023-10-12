@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <table class="table table-bordered">
-	<thead>
+	<thead class="table-light">
 		<tr>
 			<th>일련번호</th>
 			<th>회원명</th>
@@ -14,10 +14,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:set value="${paging.dataList }" var="memberList" />
+		<c:set var="memberList" value="${paging.dataList }" />
 		<c:if test="${empty memberList }">
 			<tr>
-				<td colspan="5">검색 조건에 맞는 회원 없음.</td>
+				<td colspan="7">검색 조건에 맞는 회원 없음.</td>
 			</tr>
 		</c:if>
 		<c:if test="${not empty memberList }">
@@ -38,27 +38,31 @@
 		<tr>
 			<td colspan="7">
 				${paging.pagingHTML }
-				<div id="searchUI">
-					<select name="searchType">
-						<option value>전체</option>
-						<option value="name">이름</option>
-						<option value="major">지역</option>
-					</select>
-					<input type="text" name="searchWord" />
-					<input type="button" value="검색" id="searchBtn" />
+				<div id="searchUI"  class="row g-3 d-flex justify-content-center">
+					<div class="col-auto">
+						<select name="searchType" class="form-select">
+							<option value>전체</option>
+							<option value="name">이름</option>
+							<option value="address">지역</option>
+						</select>
+					</div>
+					<div class="col-auto">
+						<input type="text" name="searchWord" class="form-control" placeholder="검색키워드"/>
+					</div>
+					<div class="col-auto">
+						<input type="button" value="검색" id="searchBtn" class="btn btn-primary"/>
+					</div>
 				</div>
 			</td>
 		</tr>
 	</tfoot>
 </table>
-
-<form id="searchForm">
-	<input type="text" name="searchType" />
-	<input type="text" name="searchWord" />
-	<input type="text" name="page" />
+<form id="searchForm" class="border">
+	<h4>전송 UI</h4>
+	<input type="text" name="searchType" readonly="readonly" placeholder="searchType"/>
+	<input type="text" name="searchWord" readonly="readonly" placeholder="searchWord"/>
+	<input type="text" name="page" readonly="readonly" placeholder="page"/>
 </form>
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -77,61 +81,53 @@
     </div>
   </div>
 </div>
-<!-- 내가 작성한 것 -->
-<div class="modal fade" id="memberDetailModal" tabindex="-1" aria-labelledby="memberModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="memberModal">회원 상세정보</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="memberDetailArea">
-           
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <script>
-	$(':input[name=searchType]').val("${paging.simpleCondition.searchType}");
-	$(':input[name=searchWord]').val("${paging.simpleCondition.searchWord}");
+	$(":input[name=searchType]").val("${simpleCondition.searchType}");
+	$(":input[name=searchWord]").val("${simpleCondition.searchWord}");
 	function fn_paging(page){
 		searchForm.page.value = page;
 		searchForm.requestSubmit();
 	}
-	
-	$(searchUI).on("click","#searchBtn",function(event){
-		let inputs = $(this).parents('#searchUI').find(':input[name]');
-		$.each(inputs,function(idx, ipt){
+	$(searchUI).on("click", "#searchBtn", function(event){
+		let inputs = $(this).parents("#searchUI").find(":input[name]");
+		$.each(inputs, function(idx, ipt){
 			let name = ipt.name;
 			let value = $(ipt).val();
 			$(searchForm).find(`:input[name=\${name}]`).val(value);
+			$(searchForm).submit();
 		});
-		
-		$(searchForm).submit();
-		
 	});
-	
-	
-	
-
-	// Event-Driven-Development
-	$(exampleModal).on('show.bs.modal',function(event){
+	// EDD(Event-Driven-Development)
+	$(exampleModal).on("show.bs.modal", function(event){
 		let $modal = $(this);
 		let trTag = event.relatedTarget;
-		let who = $(trTag).data('memId');
-// 		location.href = "${pageContext.request.contextPath}/member/memberView.do?who="+who;
-		let url = "${pageContext.request.contextPath}/member/memberView.do?who=" + who ;
+		let who = $(trTag).data("memId");
+// 		location.href="${pageContext.request.contextPath}/member/memberView.do?who="+who;
+		let url = "${pageContext.request.contextPath}/member/memberView.do?who="+who;
 		$.get(url)
 			.done(function(resp){
-				$modal.find('.modal-body').html(resp);
-			})
-	}).on('hidden.bs.modal',function(event){
-		$(this).find('.modal-body').empty();
+				$modal.find(".modal-body").html(resp);
+			});
+	}).on("hidden.bs.modal", function(event){
+		$(this).find(".modal-body").empty();
 	});
-	
- </script>
+</script>
 
-<%-- <script src="${pageContext.request.contextPath }/resources/js/app/member/member.js"></script> --%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

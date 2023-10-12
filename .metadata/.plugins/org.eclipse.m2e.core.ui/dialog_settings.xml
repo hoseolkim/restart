@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="D:\00.tools\eGovFrameDev-4.1.0-64bit\workspace\WebStudy04_MVCFramework"/>
 			<item value="D:\00.tools\eGovFrameDev-4.1.0-64bit\workspace\WebStudy01"/>
 			<item value="D:\00.tools\eGovFrameDev-4.1.0-64bit\workspace\WebStudy01\src\main\webapp\resources\js\app"/>
 			<item value="D:\00.tools\eGovFrameDev-4.1.0-64bit\workspace\dummyMvn"/>
@@ -52,6 +53,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="SpringIocLab"/>
 			<item value="MemoWeb"/>
 			<item value="MemoManagementApplication"/>
 			<item value="WebStudy02_MVN"/>

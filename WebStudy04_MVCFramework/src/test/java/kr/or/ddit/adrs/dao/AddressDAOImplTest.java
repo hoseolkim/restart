@@ -9,16 +9,16 @@ import org.junit.jupiter.api.Test;
 import kr.or.ddit.vo.AddressVO;
 
 class AddressDAOImplTest {
-	
+
 	AddressDAO dao = new AddressDAOImpl();
 	
 	@Test
 	void testInsertAddress() {
 		AddressVO vo = new AddressVO();
 		vo.setMemId("a001");
-		vo.setAdrsName("테스트---");
-		vo.setAdrsHp("000-0000-0000");
-		vo.setAdrsAdd("대전 오류----");
+		vo.setAdrsName("테스트--222");
+		vo.setAdrsHp("000-000-0000");
+		vo.setAdrsAdd("");
 		int rowcnt = dao.insertAddress(vo);
 		System.out.println(vo.getAdrsNo());
 		assertEquals(1, rowcnt);
@@ -26,7 +26,6 @@ class AddressDAOImplTest {
 
 	@Test
 	void testSelectAddressList() {
-		
 		List<AddressVO> adrsList = dao.selectAddressList("a001");
 		
 		assertNotNull(adrsList);
@@ -40,7 +39,12 @@ class AddressDAOImplTest {
 
 	@Test
 	void testDeleteAddress() {
-		int rowcnt = dao.deleteAddress(48);
+		int rowcnt = dao.deleteAddress(55);
 		assertEquals(1, rowcnt);
 	}
+
 }
+
+
+
+

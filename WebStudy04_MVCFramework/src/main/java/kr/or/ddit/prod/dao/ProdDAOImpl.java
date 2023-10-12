@@ -9,14 +9,15 @@ import kr.or.ddit.db.CustomSqlSessionFactoryBuilder;
 import kr.or.ddit.vo.PaginationInfo;
 import kr.or.ddit.vo.ProdVO;
 
-public class ProdDAOImpl implements ProdDAO{
+public class ProdDAOImpl implements ProdDAO {
 
-	private SqlSessionFactory sqlSessionFactory = CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
+	private SqlSessionFactory sqlSessionFactory = 
+			CustomSqlSessionFactoryBuilder.getSqlSessionFactory();
 	
 	@Override
 	public ProdVO selectProd(String prodId) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession();
+				SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
 			return mapperProxy.selectProd(prodId);
@@ -26,7 +27,7 @@ public class ProdDAOImpl implements ProdDAO{
 	@Override
 	public int selectTotalRecord(PaginationInfo<ProdVO> paging) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession();
+				SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
 			return mapperProxy.selectTotalRecord(paging);
@@ -36,30 +37,47 @@ public class ProdDAOImpl implements ProdDAO{
 	@Override
 	public List<ProdVO> selectProdList(PaginationInfo<ProdVO> paging) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession();
+				SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
 			return mapperProxy.selectProdList(paging);
 		}
 	}
-
+	
 	@Override
-	public int insertProd(ProdVO prodVO) {
+	public int insertProd(ProdVO prod) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession(true);
+				SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
-			return mapperProxy.insertProd(prodVO);
+			int cnt = mapperProxy.insertProd(prod);
+			sqlSession.commit();
+			return cnt;
 		}
 	}
 
 	@Override
 	public int updateProd(ProdVO prod) {
 		try(
-			SqlSession sqlSession = sqlSessionFactory.openSession(true);
+			SqlSession sqlSession = sqlSessionFactory.openSession();	
 		){
 			ProdDAO mapperProxy = sqlSession.getMapper(ProdDAO.class);
-			return mapperProxy.updateProd(prod);
+			int cnt = mapperProxy.updateProd(prod);
+			sqlSession.commit();
+			return cnt;
 		}
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

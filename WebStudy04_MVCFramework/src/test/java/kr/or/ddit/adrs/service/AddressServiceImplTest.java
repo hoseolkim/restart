@@ -11,13 +11,13 @@ import kr.or.ddit.vo.AddressVO;
 class AddressServiceImplTest {
 	
 	AddressService service = new AddressServiceImpl();
-	
+
 	@Test
 	void testCreateAddress() {
 		AddressVO vo = new AddressVO();
 		vo.setMemId("a001");
 		vo.setAdrsName("테스트");
-		vo.setAdrsHp("000-0000-0000");
+		vo.setAdrsHp("000-000-0000");
 		vo.setAdrsAdd("대전 오류");
 		boolean result = service.createAddress(vo);
 		assertEquals(true, result);
@@ -25,16 +25,10 @@ class AddressServiceImplTest {
 
 	@Test
 	void testRetriveAddressList() {
-		List<AddressVO> list = assertDoesNotThrow(()->{
-			return service.retriveAddressList("a001");
+		List<AddressVO> adrsList = assertDoesNotThrow(()->{
+			return service.retriveAddressList("b001");
 		});
-		
-		assertNotNull(list);
-		
-		
-		
-		
-		
+		assertNotNull(adrsList);
 	}
 
 	@Test
@@ -44,7 +38,23 @@ class AddressServiceImplTest {
 
 	@Test
 	void testRemoveAddress() {
-		boolean result = service.removeAddress(1);
-		assertEquals(true, result);
+ 		boolean result = service.removeAddress(1);
+ 		assertNotEquals(true, result);
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

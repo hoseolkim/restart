@@ -18,8 +18,6 @@ class PaginationInfoTest {
 		paging.setTotalRecord(120);
 		paging.setCurrentPage(10);
 		log.info("paging : {}", paging);
-		
-		
 	}
 
 }

@@ -1,12 +1,13 @@
 <%@page import="java.security.Principal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <h4>웰컴페이지 : ${title }</h4>
 
 <c:set var="cPath" value="${pageContext.request.contextPath }" scope="application"/>
-<c:set value="${pageContext.request.userPrincipal }" var="principal" />
-<h4>principal 객체 : ${principal }</h4>
+
+<h4>principal 객체 : ${pageContext.request.userPrincipal }</h4>
+<c:set var="principal" value="${pageContext.request.userPrincipal }"/>
 <c:choose>
 	<c:when test="${not empty principal}">
 		<form method="post" action="${cPath }/login/logout.do" id="logoutForm"></form>
@@ -28,3 +29,14 @@
 		<a href="${cPath }/member/memberInsert.do">회원가입</a>
 	</c:otherwise>
 </c:choose>
+
+
+
+
+
+
+
+
+
+
+

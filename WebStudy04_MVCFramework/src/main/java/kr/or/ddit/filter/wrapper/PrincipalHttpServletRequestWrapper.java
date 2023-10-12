@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 import kr.or.ddit.vo.MemberVO;
 
-public class PrincipalHttpServletRequestWrapper extends HttpServletRequestWrapper {
+public class PrincipalHttpServletRequestWrapper extends HttpServletRequestWrapper{
 	private HttpServletRequest request;
-	
+
 	public PrincipalHttpServletRequestWrapper(HttpServletRequest request) {
 		super(request);
 		this.request = request;
 	}
-	
+
 	@Override
 	public Principal getUserPrincipal() {
 		MemberVO authMember = (MemberVO) getSession().getAttribute("authMember");
@@ -25,7 +25,19 @@ public class PrincipalHttpServletRequestWrapper extends HttpServletRequestWrappe
 			return super.getUserPrincipal();
 		}
 	}
-	
-	
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

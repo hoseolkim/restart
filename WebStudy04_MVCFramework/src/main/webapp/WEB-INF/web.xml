@@ -21,8 +21,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-
-	
 	<filter>
 		<filter-name>GeneratePrincipalFilter</filter-name>
 		<filter-class>kr.or.ddit.filter.GeneratePrincipalFilter</filter-class>
@@ -41,29 +39,54 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	
-	
 	<listener>
-    	<listener-class>org.apache.tiles.web.startup.simple.SimpleTilesListener</listener-class>
+		<listener-class>org.apache.tiles.web.startup.simple.SimpleTilesListener</listener-class>
 	</listener>
-	
+
 	<servlet>
-	    <servlet-name>Tiles Dispatch Servlet</servlet-name>
-	    <servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-	    <servlet-name>Tiles Dispatch Servlet</servlet-name>
-	    <url-pattern>*.tiles</url-pattern>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<url-pattern>*.tiles</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<servlet-class>kr.or.ddit.mvc.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>prefix</param-name>
+			<param-value>/WEB-INF/views/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>suffix</param-name>
+			<param-value>.jsp</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<multipart-config></multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<url-pattern>/index.do</url-pattern>
+		<url-pattern>/mypage</url-pattern>
+		<url-pattern>/adrs/view</url-pattern>
+		<url-pattern>/adrs/address</url-pattern>
+		<url-pattern>/adrs/address/*</url-pattern>
 	</servlet-mapping>
 </web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

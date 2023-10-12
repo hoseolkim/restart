@@ -34,8 +34,7 @@ public class MemberServiceImpl implements MemberService {
 			throw new UserNotFoundException(memId);
 		return member;
 	}
-	
-	
+
 	@Override
 	public List<MemberVO> retrieveMemberList(PaginationInfo paging) {
 		int totalRecord = dao.selectTotalRecord(paging);
@@ -50,8 +49,10 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO inputData = new MemberVO();
 		inputData.setMemId(member.getMemId());
 		inputData.setMemPass(member.getMemPass());
-		ServiceResult result = authService.authenticate(inputData);
-		if(result.equals(ServiceResult.OK)) {
+		
+		ServiceResult authenticated =authService.authenticate(inputData);
+		ServiceResult result = null;
+		if(authenticated==ServiceResult.OK) {
 			int rowcnt = dao.updateMember(member);
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}else {
@@ -63,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
 		ServiceResult result = authService.authenticate(member);
-		if(result.equals(ServiceResult.OK)) {
+		if(result == ServiceResult.OK) {
 			int rowcnt = dao.deleteMember(member.getMemId());
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}else {
@@ -71,4 +72,18 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

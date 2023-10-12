@@ -10,7 +10,7 @@ import kr.or.ddit.vo.ProdVO;
 
 public class ProdServiceImpl implements ProdService {
 	private ProdDAO dao = new ProdDAOImpl();
-	
+
 	@Override
 	public ProdVO retrieveProd(String prodId) {
 		return dao.selectProd(prodId);
@@ -25,14 +25,32 @@ public class ProdServiceImpl implements ProdService {
 	}
 
 	@Override
-	public ServiceResult createProd(ProdVO prodVO) {
-		int res = dao.insertProd(prodVO);
-		return res > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+	public ServiceResult createProd(ProdVO prod) {
+		int cnt = dao.insertProd(prod);
+		return cnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 
 	@Override
 	public ServiceResult modifyProd(ProdVO prod) {
-		int res = dao.updateProd(prod);
-		return res > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		int cnt = dao.updateProd(prod);
+		return cnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

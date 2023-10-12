@@ -25,10 +25,9 @@ public class DummyFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response; 
-		log.info("{} 요청 발생, {}",req.getRequestURI(), LocalDateTime.now());
+		HttpServletResponse resp = (HttpServletResponse) response;
+		log.info("{} 요청 발생, {}", req.getRequestURI(), LocalDateTime.now());
 		chain.doFilter(request, response);
 		log.info("{} 응답 전송", resp.getContentType());
 	}
@@ -37,5 +36,15 @@ public class DummyFilter implements Filter {
 	public void destroy() {
 		log.info("{} 필터 소멸", this.getClass().getSimpleName());
 	}
-	
+
 }
+
+
+
+
+
+
+
+
+
+

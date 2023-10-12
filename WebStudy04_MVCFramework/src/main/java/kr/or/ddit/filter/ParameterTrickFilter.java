@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.filter.wrapper.DummyHttpServletRequestWrapper;
 
-
 public class ParameterTrickFilter implements Filter{
 
 	@Override
@@ -25,18 +24,34 @@ public class ParameterTrickFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
+		HttpServletResponse resp = (HttpServletResponse)response;
 		
 		HttpServletRequestWrapper wrapperReq = new DummyHttpServletRequestWrapper(req);
 		
 		chain.doFilter(wrapperReq, response);
-		
-		
 	}
 
 	@Override
 	public void destroy() {
 		
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

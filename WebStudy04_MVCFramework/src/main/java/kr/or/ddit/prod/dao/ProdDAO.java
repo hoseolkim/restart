@@ -32,11 +32,40 @@ public interface ProdDAO {
 	public List<ProdVO> selectProdList(PaginationInfo<ProdVO> paging);
 	
 	/**
-	 * 새로운 제품 추가
-	 * @param prodVO
+	 * 상품코드를 생성하고, 신규 상품을 등록함.
+	 * @param prod
 	 * @return
 	 */
-	public int insertProd(ProdVO prodVO);
+	public int insertProd(ProdVO prod);
 	
+	/**
+	 * 상품 수정
+	 * @param prod
+	 * @return > 0 (성공)
+	 */
 	public int updateProd(ProdVO prod);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
