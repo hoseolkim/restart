@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="kr.or.ddit.common.view.JsonView"/>
-    <fullyQualifiedTypeName name="javax.servlet.ServletException"/>
-    <fullyQualifiedTypeName name="kr.or.ddit.mvc.BeanNameViewResolver"/>
-    <fullyQualifiedTypeName name="java.io.IOException"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
-    <fullyQualifiedTypeName name="kr.or.ddit.prod.controller.ProdListController"/>
-    <fullyQualifiedTypeName name="kr.or.ddit.prod.controller.ProdViewController"/>
-    <fullyQualifiedTypeName name="kr.or.ddit.prod.controller.ProdListController_Case2"/>
     <fullyQualifiedTypeName name="kr.or.ddit.prod.controller.ProdListDataController"/>
     <fullyQualifiedTypeName name="kr.or.ddit.common.controller.IndexController"/>
     <fullyQualifiedTypeName name="kr.or.ddit.mvc.ViewResolver"/>
@@ -46,18 +38,26 @@
     <fullyQualifiedTypeName name="kr.or.ddit.case1.service.Case1SampleServiceImpl"/>
     <fullyQualifiedTypeName name="kr.or.ddit.case1.dao.Case1SampleDAOImpl_Oracle"/>
     <fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
-    <fullyQualifiedTypeName name="org.springframework.context.support.GenericXmlApplicationContext"/>
     <fullyQualifiedTypeName name="kr.or.ddit.case1.service.Case1SampleService"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="org.springframework.context.ConfigurableApplicationContext"/>
     <fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
     <fullyQualifiedTypeName name="kr.or.ddit.case1.presentation.Case1SamplePresentation"/>
-    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
-    <fullyQualifiedTypeName name="javax.annotation.Resource"/>
     <fullyQualifiedTypeName name="javax.inject.Inject"/>
     <fullyQualifiedTypeName name="javax.inject.Named"/>
+    <fullyQualifiedTypeName name="kr.or.ddit.file.utils.MultipartFile"/>
+    <fullyQualifiedTypeName name="org.springframework.context.ConfigurableApplicationContext"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.GenericXmlApplicationContext"/>
+    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+    <fullyQualifiedTypeName name="org.springframework.core.io.Resource"/>
+    <fullyQualifiedTypeName name="kr.or.ddit.resource.ResourceVO"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="javax.annotation.Resource"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
 </qualifiedTypeNameHistroy>
